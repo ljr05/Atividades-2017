@@ -316,7 +316,7 @@ A Figura \ref{fig:data}, ilustra uma representação bi-dimensional da base dado
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.7\textwidth]{figures/data.eps}
+\includegraphics[width=0.8\textwidth]{figures/data.eps}
 \caption{Representação bi-dimensional dos dados considerando as variáveis $x_1$ e $x_2$, comprimento e largura da sépala, respectivamente.}
 \label{fig:data}
 \end{figure}
@@ -379,8 +379,8 @@ As Figuras \ref{fig:product} e \ref{fig:minimum} ilustram as regiões de classif
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=0.7\textwidth]{figures/product.eps}
-\caption{Região de classificação usando a t-norma produto.}
+\includegraphics[width=0.8\textwidth]{figures/product.eps}
+\caption{Região de classificação usando a \textit{t-norma} produto.}
 \label{fig:product}
 \end{figure}
 
@@ -388,8 +388,8 @@ As Figuras \ref{fig:product} e \ref{fig:minimum} ilustram as regiões de classif
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=0.7\textwidth]{figures/minimum.eps}
-\caption{Região de classificação usando a t-norma mínimo.}
+\includegraphics[width=0.8\textwidth]{figures/minimum.eps}
+\caption{Região de classificação usando a \textit{t-norma} mínimo.}
 \label{fig:minimum}
 \end{figure}
 
@@ -412,14 +412,24 @@ A partir destes, houve a implementação das características de contexto adquir
 
 Os experimentos foram realizados $25$ vezes, para cada número de funções de pertinência de $2$ até $15$, com o propósito de se observar o limiar de convergência e paridade entre o erro do conjunto de treinamento e erro no conjunto de validação e eliminar a natureza estocástica da escolha do dados de treinamento de validação.
 
+As Figuras \ref{fig:error_product} e \ref{fig:error_minimum} apresentam a evolução do erro de classificação, quando avaliados os dados de treinamento e validação, em função do número de funções de pertinência.
+
+Note que, para ambas as \textit{t-normas} o número ideal de funções de pertinência é $8$. De modo que, para um número menor de funções de pertinência ocorre o chamado \textit{underfitting} e para um número maior de funções de pertinência ocorre o chamado \textit{oerfitting}.
+
 %As amostras foram escolhidas aleatoriamente dentro dos subconjuntos e avaliadas para cada conjunto de regras, por n repetidas vezes.
 
-
-\begin{figure}[ht]
+\begin{figure}[ht!]
 \centering
-\includegraphics[width=0.7\textwidth]{figures/error.eps}
-\caption{Trajetória do erro em relação ao número de funções de pertinência, considerando a avaliação dos dados de treinamento e validação.}
-\label{fig:error}
+\includegraphics[width=0.8\textwidth]{figures/error_product.eps}
+\caption{Trajetória do erro em relação ao número de funções de pertinência, considerando a avaliação dos dados de treinamento e validação para a \textit{t-norma} produto.}
+\label{fig:error_product}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/error_minimum.eps}
+\caption{Trajetória do erro em relação ao número de funções de pertinência, considerando a avaliação dos dados de treinamento e validação para a \textit{t-norma} mínimo.}
+\label{fig:error_minimum}
 \end{figure}
 
 \newpage
