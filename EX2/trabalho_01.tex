@@ -281,7 +281,7 @@ Prof. Dr. André Paim Lemos
 %\numberwithin{equation}{section}
 
 {\abstract
-Este trabalho apresenta a reprodução da metodologia e dos procedimentos experimentais realizados no artigo de Hisao Ishibuchi e Tomoharu Nakashima (2001), denominado \textit{Effect of Rule Weights in Fuzzy Rule-Based Classification Systems}, em que são avaliados os efeitos de ponderação de regras em sistemas de classificação fuzzy. A metodologia considera que os valores linguísticos antecedentes de cada classe tem uma única classe consequente, a partir da observação de grau de compatibilidade e de certeza, quando da classificação de padrões. Os autores concluem que sistemas de classificação fuzzy com alta desempenho podem ser projetados apenas através do uso de ponderação de regras com graus de certeza, o que é equivalente a técnica de modificação de funções de pertinência de valores linguísticos antecedentes.}
+Este trabalho apresenta a reprodução da metodologia e dos procedimentos experimentais realizados no artigo de Ishibuchi, H. e Nakashima, T. [1], denominado \textit{Effect of Rule Weights in Fuzzy Rule-Based Classification Systems}, em que são avaliados os efeitos de ponderação de regras em sistemas de classificação fuzzy. A metodologia considera que os valores linguísticos antecedentes de cada classe tem uma única classe consequente, a partir da observação de grau de compatibilidade e de certeza, quando da classificação de padrões. Os autores concluem que sistemas de classificação fuzzy com alta desempenho podem ser projetados apenas através do uso de ponderação de regras com graus de certeza, o que é equivalente a técnica de modificação de funções de pertinência de valores linguísticos antecedentes.}
 \newpage
 
 \section{Introdução}
@@ -425,9 +425,11 @@ Os experimentos foram realizados $25$ vezes, para cada número de funções de p
 \newpage
 \section{Conclusões}
 
-A utilização de sistemas de classificação baseados em regra a partir da ponderação por grau de certeza, oferece uma solução baseada em conhecimento dedutivo, o que em termos práticos, implica na sobreposição de uma regra dominante sobre outra no espaço fuzzy, ou seja, na combinação de $n$ regras, pelo menos uma, por inferência composicional, forma a consequência lógica.
+A utilização de sistemas de classificação baseados em regras ponderadas através de graus de certeza, oferece uma solução baseada em conhecimento dedutivo, o que em termos práticos, implica na sobreposição de uma regra dominante sobre outra no espaço fuzzy, ou seja, na combinação de $n$ regras, pelo menos uma, por inferência composicional, forma a consequência lógica.
 
-Todos os procedimentos realizados no artigo e replicados em simulações compõem base de conhecimento por raciocínio aproximado pelo fato da definição de consequentes a partir de relações de compatibilidade em função dos graus de certeza. Neste sentido as conclusões das conjunções lógicas, seja pelo operador mínimo ou de produto da t-norma, são baseadas no domínio de uma regra sobre a outra no espaço de decisão, sendo este ponderado pelo grau de certeza..
+Todos os procedimentos realizados no artigo e replicados em simulações compõem base de conhecimento por raciocínio aproximado pelo fato da definição de consequentes a partir de relações de compatibilidade em função dos graus de certeza. Neste sentido as conclusões das conjunções lógicas, seja pelo operador mínimo ou produto como \textit{t-norma}, são baseadas no domínio de uma regra sobre a outra no espaço de decisão, sendo este ponderado pelo grau de certeza.
+
+Assim, o procedimento apresentado em [1], o qual consiste na ponderação de regras SE-ENTÃO a partir de graus de certeza substitui a necessidade de otimização das funções de pertinências empregadas para descrição das variáveis linguísticas.
 \newpage
 
 \section*{Referências}
