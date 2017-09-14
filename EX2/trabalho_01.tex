@@ -7,7 +7,7 @@
 \usepackage{epstopdf}
 %\usepackage{natbib}
 %\usepackage[num,overcite]{abntex2cite}
-
+\usepackage{color}
 %\usepackage{hyperref}
 \usepackage[hidelinks]{hyperref}
 \usepackage[alf]{abntex2cite}
@@ -281,7 +281,7 @@ Prof. Dr. André Paim Lemos
 %\numberwithin{equation}{section}
 
 {\abstract
-Este trabalho apresenta a reprodução da metodologia e dos procedimentos experimentais realizados no artigo de Ishibuchi, H. e Nakashima, T. [1], denominado \textit{Effect of Rule Weights in Fuzzy Rule-Based Classification Systems}, em que são avaliados os efeitos de ponderação de regras em sistemas de classificação fuzzy. A metodologia considera que os valores linguísticos antecedentes de cada classe tem uma única classe consequente, a partir da observação de grau de compatibilidade e de certeza, quando da classificação de padrões. Os autores concluem que sistemas de classificação fuzzy com alta desempenho podem ser projetados apenas através do uso de ponderação de regras com graus de certeza, o que é equivalente a técnica de modificação de funções de pertinência de valores linguísticos antecedentes.}
+Este trabalho apresenta a reprodução da metodologia e dos procedimentos experimentais realizados no artigo de Ishibuchi, H. e Nakashima, T. [1], denominado \textit{Effect of Rule Weights in Fuzzy Rule-Based Classification Systems}, em que são avaliados os efeitos de ponderação de regras em sistemas de classificação fuzzy. A metodologia considera que os valores linguísticos antecedentes de cada classe tem uma única classe consequente, a partir da observação de grau de compatibilidade e de certeza, quando da classificação de padrões. Os autores concluem que sistemas de classificação fuzzy com alto desempenho podem ser projetados apenas por meio do uso de ponderação de regras com graus de certeza, o que é equivalente a técnica de modificação de funções de pertinência de valores linguísticos antecedentes.}
 \newpage
 
 \section{Introdução}
@@ -326,7 +326,7 @@ A Figura \ref{fig:data}, ilustra uma representação bi-dimensional da base dado
 O método implementado consiste de uma abordagem de seleção de apenas uma classe, ou classe vencedora, durante a fase de classificação, além de, quando na observação da área de decisão haver fronteiras de classificação tendo em vista as regras fuzzy. Ao ponderar-se estas pelo grau de certeza $C_{j}$:
 
 \begin{equation} \label{eq:eq3}
-\sum_{p\in Class~C_{j}} \mu_{j}(x_p)=\max(\sum_{p\in Class~k}\mu(x_{p}):k=1,2,...,c)
+\sum_{p\in Class~C_{j}} \mu_{j}(x_p)=\max\lbrace\sum_{p\in Class~k}\mu(x_{p}):k=1,2,...,c\rbrace
 \end{equation}
 onde: $x_{p}$: número de padrões e $c$: número de classes.
 
@@ -341,7 +341,7 @@ A classe consequente pode ser determinada a partir de padrões de treinamento, a
 \begin{equation} \label{eq:eq5}
 CF_{j}=\frac{\beta_{Classe~C_{j}}(R_{j})-\overline{\beta}}{\sum_{k=1}^{c}\beta_{Classe~k}(R_{j})}
 \end{equation}
-onde $C_{j}$ é a classe consequente e:
+onde $C_{j}$ é a classe consequente, e:
 
 \begin{equation} \label{eq:eq6}
 \overline{\beta}=\frac{\sum_{k\neq C_{j}}\beta_{Classe~k}(R_{j})}{(c-1)}
@@ -358,7 +358,7 @@ Em seguida, todas as quatro variáveis do conjunto de dados são utilizadas para
 
 Além disso, o número de funções de pertinência para descrição das variáveis linguísticas é alterado de $2$ até $15$ funções de pertinências. Todo o processo é repetido $25$ vezes para um número fixo de funções de pertinência, afim de se obter o erro médio de classificação, desconsiderando a natureza estocástica da escolha dos dados de treinamento de validação.
 
-A escolha do tipo de função de pertinência é a mesma apresenta em [1], funções triangulares igualmente espaçadas. A Figura \ref{fig:membership} ilustra $6$ funções de pertinência para cada uma das variáveis da base de dados \textit{Iris}, considerando as variáveis já normalizadas.
+A escolha do tipo de função de pertinência é a mesma apresentada em [1], funções triangulares igualmente espaçadas. Na Figura \ref{fig:membership} são ilustradas $6$ funções de pertinência para cada uma das variáveis da base de dados \textit{Iris}, considerando as variáveis já normalizadas.
 
 \begin{figure}[ht!]
 \centering
@@ -371,7 +371,7 @@ A escolha do tipo de função de pertinência é a mesma apresenta em [1], funç
 
 Como os dados possuem quatro variáveis de entradas, a visualização das regiões de classificação é prejudicada, para exemplificar, apenas duas variáveis, comprimento e largura da sépala, foram utilizadas no treinamento afim de se obter regiões de classificação bi-dimensionais, conforme dito anteriormente.
 
-Nesta etapa, a partir da definição do grau de certeza na observação das características do conjunto de dados, o sistema de classificação converge para uma discriminação das classes (espécies), como uma área de decisão, a partir da especificação de cada regra e da fronteira de classificação.
+Nesta etapa, a partir da definição do grau de certeza na observação das características do conjunto de dados, o sistema de classificação converge para uma discriminação das classes (espécies), como uma região de classificação, a partir da especificação de cada regra e da fronteira de classificação.
 
 As Figuras \ref{fig:product} e \ref{fig:minimum} ilustram as regiões de classificação obtidas a partir da utilização das \textit{t-normas}, produto e mínimo, respectivamente. Em ambas as Figuras foram utilizadas $8$ (oito) funções de pertinência triangulares para definição dos antecedentes das variáveis, $x_1$ e $x_2$. O motivo dessa escolha será abordado na Subseção \ref{subsection:training}.
 
@@ -395,7 +395,7 @@ As Figuras \ref{fig:product} e \ref{fig:minimum} ilustram as regiões de classif
 
 O particionamento do espaço de entrada (variáveis) fornece o suporte para formulação de regras que estejam relacionadas a este subespaço. Em termos práticos, a utilização destes dois tipos de conjunções lógicas, implica na análise das regras, sejam elas condicionais (relação interna entre antecedentes e consequentes) e incondicionais, de maneira geral afirmativas. 
 
-Nota-se que o processo de inferência, ou seja, o processo de avaliação das regras para cada subconjunto fuzzy acaba por estabelecer relações. Neste caso, no sistema de classificação, ao combinar-se o conjunto de dados de entrada, ao menos uma regra deve ser ativada, ponderada pelo grau de certeza.
+Nota-se que o processo de inferência, ou seja, o processo de avaliação das regras para cada subconjunto fuzzy acaba por estabelecer relações. Neste caso, ao combinar o conjunto de dados de entrada no sistema de classificação, ao menos uma regra deve ser ativada ponderada pelo grau de certeza.
 
 Além disso, os operadores mínimo e produto algébrico, utilizados como \textit{t-norma} no que se refere a inferência composicional de regras, estabelecem a interseção entre regras para a dedução de uma consequência lógica.
 
@@ -408,13 +408,13 @@ Para todas as classes, no total, quatro dados de entrada aplicados a três espé
 
 Neste sentido, na etapa de treinamento, a partir de aprendizado supervisionado, houve a classificação inicial das amostras, como função da quantidade de regras e dos graus de certeza, no sentido de se estabelecer as condições e parâmetros iniciais do sistema de classificação.
 
-A partir destes, houve a implementação das características de contexto adquiridas na etapa de treinamento, no sentido de aferir-se a performance do sistema de classificação.
+A partir destes, houve a implementação das características de contexto adquiridas na etapa de treinamento, no sentido de aferir-se o desempenho do sistema de classificação.
 
 Os experimentos foram realizados $25$ vezes, para cada número de funções de pertinência de $2$ até $15$, com o propósito de se observar o limiar de convergência e paridade entre o erro do conjunto de treinamento e erro no conjunto de validação e eliminar a natureza estocástica da escolha do dados de treinamento de validação.
 
 As Figuras \ref{fig:error_product} e \ref{fig:error_minimum} apresentam a evolução do erro de classificação, quando avaliados os dados de treinamento e validação, em função do número de funções de pertinência.
 
-Note que, para ambas as \textit{t-normas} o número ideal de funções de pertinência é $8$. De modo que, para um número menor de funções de pertinência ocorre o chamado \textit{underfitting} e para um número maior de funções de pertinência ocorre o chamado \textit{oerfitting}.
+Nota-se que, para ambas as \textit{t-normas} o número dito ideal de funções de pertinência é $8$. De modo que, para um número menor de funções de pertinência ocorre o chamado \textit{underfitting}, , e para um número maior de funções de pertinência ocorre o chamado \textit{overfitting}.
 
 %As amostras foram escolhidas aleatoriamente dentro dos subconjuntos e avaliadas para cada conjunto de regras, por n repetidas vezes.
 
@@ -435,9 +435,9 @@ Note que, para ambas as \textit{t-normas} o número ideal de funções de pertin
 \newpage
 \section{Conclusões}
 
-A utilização de sistemas de classificação baseados em regras ponderadas através de graus de certeza, oferece uma solução baseada em conhecimento dedutivo, o que em termos práticos, implica na sobreposição de uma regra dominante sobre outra no espaço fuzzy, ou seja, na combinação de $n$ regras, pelo menos uma, por inferência composicional, forma a consequência lógica.
+A utilização de sistemas de classificação baseados em regras ponderadas através de graus de certeza, oferece uma solução baseada em conhecimento dedutivo, o que em termos práticos, implica na sobreposição de uma regra dominante sobre outra no espaço fuzzy, ou seja, na combinação de $n$ regras, pelo menos uma, por inferência composicional, forma a consequência lógica e tendência.
 
-Todos os procedimentos realizados no artigo e replicados em simulações compõem base de conhecimento por raciocínio aproximado pelo fato da definição de consequentes a partir de relações de compatibilidade em função dos graus de certeza. Neste sentido as conclusões das conjunções lógicas, seja pelo operador mínimo ou produto como \textit{t-norma}, são baseadas no domínio de uma regra sobre a outra no espaço de decisão, sendo este ponderado pelo grau de certeza.
+Todos os procedimentos realizados no artigo e replicados nas simulações descritas compõem base de conhecimento por raciocínio aproximado, pelo fato da definição de consequentes a partir de relações de compatibilidade. Neste sentido a conclusão das conjunções lógicas, seja pelo operador mínimo ou produto como \textit{t-norma}, são baseadas no domínio de uma regra sobre a outra no espaço de decisão, sendo este ponderado pelo grau de certeza.
 
 Assim, o procedimento apresentado em [1], o qual consiste na ponderação de regras SE-ENTÃO a partir de graus de certeza substitui a necessidade de otimização das funções de pertinências empregadas para descrição das variáveis linguísticas.
 \newpage
