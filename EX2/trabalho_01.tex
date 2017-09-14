@@ -301,12 +301,9 @@ onde:
 
 Na abordagem do artigo a ponderação das regras SE-ENTÃO com os graus de certeza é dada por:
 \begin{equation} \label{eq:eq2}
-Regra~R_{j}:~Se~x_{i}~\text{é } A_{j1}~e...e~x_{n} \text{é } A_{jn}~\text{então }Classe~C_{j}~com~CF_{j}, j=1,2,...,N
+Regra~R_{j}:~Se~x_{i}~\text{é } A_{j1}~e...e~x_{n}~\text{é}~A_{jn}~\text{então}~Classe~C_{j}~\text{com}~CF_{j}, j=1,2,...,N
 \end{equation}
-onde:
-\begin{itemize} 
-\item $CF_{j}$ é o grau de certeza do consequente, $C_{j}$, de cada regra fuzzy SE-ENTÃO $R_{j}$, é um número real no intervalo [0,1].
-\end{itemize}
+onde $CF_{j}$ é o grau de certeza do consequente, $C_{j}$, de cada regra fuzzy SE-ENTÃO $R_{j}$, é um número real no intervalo [0,1].
 
 Para esta aplicação foi utilizada a base de dados \textit{Iris} (1936), do biólogo e estatístico britânico Ronald Fisher, para três espécies da flor \textit{Iris} (\textit{setosa, virginica, versicolor}), com $50$ amostras de cada espécie totalizando $150$ amostras no conjunto de dados. Considera-se o conjunto de dados separáveis pela discriminação das seguintes características:
 
@@ -352,15 +349,27 @@ onde $C_{j}$ é a classe consequente e:
 
 As formulações indicadas nas equações \eqref{eq:eq5} e \eqref{eq:eq6} estendem a determinação do grau de certeza para um problema de classificação com $c$ classes.
 
-\subsection{Procedimentos Computacionais} \label{PC}
+%\subsection{Procedimentos Computacionais}
+\section{Resultados}
 
-Inicialmente o modelo foi descrito como sendo função das duas primeiras variáveis do conjunto de dados, os quais correspondem ao comprimento e largura da sépala de todas as classes.
+Inicialmente o modelo foi descrito através de apenas duas variáveis do conjunto de dados, as quais correspondem ao comprimento e largura da sépala de todas as classes, afim de se visualizar as delimitações das regiões de classificação.
 
-Em termos de modelagem... (Acho que seri abom exemplificar as funções de pertinência que foram utilizadas).
+Em seguida, todas as quatro variáveis do conjunto de dados são utilizadas para criação de um modelo de classificação geral. A abordagem empregada consiste na técnica de validação cruzada, onde são utilizados de maneira aleatória $70\%$ dos dados para treinamento e os $30\%$ dos dados restantes para validação do modelo.
+
+Além disso, o número de funções de pertinência para descrição das variáveis linguísticas é alterado de $2$ até $15$ funções de pertinências. Todo o processo é repetido $25$ vezes para um número fixo de funções de pertinência, afim de se obter o erro médio de classificação, desconsiderando a natureza estocástica da escolha dos dados de treinamento de validação.
+
+A escolha do tipo de função de pertinência é a mesma apresenta em [1], funções triangulares igualmente espaçadas. A Figura \ref{fig:membership} ilustra $6$ funções de pertinência para cada uma das variáveis da base de dados \textit{Iris}, considerando as variáveis já normalizadas.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/membership.eps}
+\caption{Funções de pertinência para variável do banco de dados \textit{Iris}.}
+\label{fig:membership}
+\end{figure}
 
 \subsection{Regiões de Classificação}
 
-Como os dados possuem quatro variáveis de entradas, a visualização das regiões de classificação é prejudicada, para exemplicá-la, apenas duas variáveis, comprimento e largura da sépala, foram utilizadas no treinamento afim de se obter regiões de classificação bi-dimensionais.
+Como os dados possuem quatro variáveis de entradas, a visualização das regiões de classificação é prejudicada, para exemplificar, apenas duas variáveis, comprimento e largura da sépala, foram utilizadas no treinamento afim de se obter regiões de classificação bi-dimensionais, conforme dito anteriormente.
 
 Nesta etapa, a partir da definição do grau de certeza na observação das características do conjunto de dados, o sistema de classificação converge para uma discriminação das classes (espécies), como uma área de decisão, a partir da especificação de cada regra e da fronteira de classificação.
 
@@ -371,7 +380,7 @@ As Figuras \ref{fig:product} e \ref{fig:minimum} ilustram as regiões de classif
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=0.7\textwidth]{figures/product.eps}
-\caption{Área de decisão usando a t-norma produto.}
+\caption{Região de classificação usando a t-norma produto.}
 \label{fig:product}
 \end{figure}
 
@@ -380,7 +389,7 @@ As Figuras \ref{fig:product} e \ref{fig:minimum} ilustram as regiões de classif
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=0.7\textwidth]{figures/minimum.eps}
-\caption{Área de decisão usando a t-norma mínimo.}
+\caption{Região de classificação usando a t-norma mínimo.}
 \label{fig:minimum}
 \end{figure}
 
@@ -393,22 +402,23 @@ Além disso, os operadores mínimo e produto algébrico, utilizados como \textit
 \subsection{Treinamento e Validação}
 \label{subsection:training}
 
-Na abordagem computacional, por meio da técnica de validação cruzada, cada conjunto de espécies foi separado em subconjuntos de treinamento e teste representados, com dimensão de 70\% e 30\%, respectivamente de cada classe de padrões.
+Na abordagem computacional, por meio da técnica de validação cruzada, cada conjunto de espécies foi separado de forma aleatória em subconjuntos de treinamento e validação representados, com dimensão de $70\%$ e $30\%$, respectivamente de cada classe de padrões.
 
-Para todas as classes, no total, quatro dados de entrada aplicados a três espécies, com 50 amostras. Como ferramenta de aprendizagem, os conjuntos de treinamento e teste, foram determinados observando-se os percentuais em 35 e 15 amostras, respectivamente, para cada classe $C_{j}$.
+Para todas as classes, no total, quatro dados de entrada aplicados a três espécies, com $50$ amostras. Como ferramenta de aprendizagem, os conjuntos de treinamento e validação, foram determinados observando-se os percentuais em $35$ e $15$ amostras, respectivamente, para cada classe $C_{j}$.
 
 Neste sentido, na etapa de treinamento, a partir de aprendizado supervisionado, houve a classificação inicial das amostras, como função da quantidade de regras e dos graus de certeza, no sentido de se estabelecer as condições e parâmetros iniciais do sistema de classificação.
 
 A partir destes, houve a implementação das características de contexto adquiridas na etapa de treinamento, no sentido de aferir-se a performance do sistema de classificação.
 
-Os experimentos foram realizados N vezes, para 2 até n regras, com o propósito de se observar o limiar de convergência e paridade entre o erro do conjunto de treinamento e erro no conjunto de teste. As amostras foram escolhidas aleatoriamente dentro dos subconjuntos e testadas para cada conjunto de regras, por n repetidas vezes.
+Os experimentos foram realizados $25$ vezes, para cada número de funções de pertinência de $2$ até $15$, com o propósito de se observar o limiar de convergência e paridade entre o erro do conjunto de treinamento e erro no conjunto de validação e eliminar a natureza estocástica da escolha do dados de treinamento de validação.
 
-(Separar os gráficos Rodrigo).
+%As amostras foram escolhidas aleatoriamente dentro dos subconjuntos e avaliadas para cada conjunto de regras, por n repetidas vezes.
+
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.7\textwidth]{figures/error.eps}
-\caption{Trajetória do erro em relação ao número de funções de pertinência.}
+\caption{Trajetória do erro em relação ao número de funções de pertinência, considerando a avaliação dos dados de treinamento e validação.}
 \label{fig:error}
 \end{figure}
 
