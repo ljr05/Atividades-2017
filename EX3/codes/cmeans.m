@@ -1,3 +1,4 @@
+% algorithm c_Means
 function [center,U,obj_fun] = cmeans(data,c,m,e)
 n = size(data,1);               % number of data
 center = rand(c,size(data,2));  % centers
@@ -20,7 +21,7 @@ while (1)
             end
         end
     end
-    % Updating the cluster centers
+    % Calculation of new cluster centers
     for i=1:c
         s_ux = 0;
         s_u = 0;
@@ -35,9 +36,11 @@ while (1)
     for i=1:c
         if (norm(C(i,:) - center(i,:)) > e)
             aux = 1;
+            break;
         end
-        center(i,:) = C(i,:);
     end
+    % Updating the cluster centers
+    center(1:c,:) = C(1:c,:);
     % Results of the objective function at k-th iteration
     obj_fun(k) = fun(center,U.^m,data);
     disp(['Iteration count = ',num2str(k),', obj.fcn = ',num2str(obj_fun(k))]);
