@@ -369,95 +369,53 @@ Para esta aplicação foi utilizada a base de dados \textit{Iris} (1936), do bi�
 \item comprimento e largura da pétala.
 \end{itemize}
 
-A Figura \ref{fig:data}, ilustra uma representação bi-dimensional da base dados \textit{Iris} considerando apenas duas variáveis dos mesmos, $x_1$ e $x_2$, as quais representam comprimento e largura da sépala, respectivamente.
+\section{Descrição do Experimentos}
+\label{section:descr}
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.8\textwidth]{figures/data.eps}
-\caption{Representação bi-dimensional dos dados considerando as variáveis $x_1$ e $x_2$, comprimento e largura da sépala, respectivamente.}
-\label{fig:data}
+Com o objetivo de avaliar o algoritmo \textit{c-means} foram elaborados os seguintes experimentos:
+
+\begin{enumerate}
+	\item Aplicação do algoritmo \textit{fuzzy c-means} desenvolvido ao conjunto de dados \texttt{fcmdata.dat} para 4 (quatro) grupos de agrupamentos e comparação dos resultados obtidos com a função \texttt{fcm} do MATLAB.
+	\item Adaptação do algoritmo anterior para o problema de segmentação de imagens e comparação dos resultados obtidos com a função \texttt{fcm} do MATLAB para o espaço de cores RGB utilizando diferentes quantidades de grupos de agrupamento.
+	%(nesse exercício você deve escolher o número de grupos de acordo com sua avaliação da imagem).
+\end{enumerate}
+
+A Figura \ref{fig:fcmdata} e \ref{fig:images} ilustram os dados do conjunto \texttt{fcmdata.dat} e as imagens utilizadas na aplicação do algoritmo \textit{c-means} para segmentação de imagens, respectivamente.
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/data.eps}
+	\caption{Conjunto de dados \texttt{fcmdata.dat}.}
+	\label{fig:fcmdata}
 \end{figure}
 
-\section{Metodologia}
-
-O método implementado consiste de uma abordagem de seleção de apenas uma classe, ou classe vencedora, durante a fase de classificação, além de, quando na observação da área de decisão haver fronteiras de classificação tendo em vista as regras fuzzy. Ao ponderar-se estas pelo grau de certeza $C_{j}$:
-
-\begin{equation} \label{eq:eq3}
-\sum_{p\in Class~C_{j}} \mu_{j}(x_p)=\max\lbrace\sum_{p\in Class~k}\mu(x_{p}):k=1,2,...,c\rbrace
-\end{equation}
-onde: $x_{p}$: número de padrões e $c$: número de classes.
-
-Como pode ser visto na Eq. \eqref{eq:eq3} a classe consequente $C_{j}$ é especificada como a classe dominante no espaço fuzzy correspondente ao antecedente de cada regra fuzzy SE-ENTÃO. Aplicando-se a definição demonstrada na Eq. \eqref{eq:eq2}, um novo padrão $x{p}=(x_{p1},...,x_{pn})$, pode ser classificado a partir de:
-
-\begin{equation} \label{eq:eq4}
-\mu_{j}^{ *}(x_{p}).CF_{j}=\max\lbrace\mu_{j}(x_{p}).CF_{j}:~j=1,2,...,N\rbrace
-\end{equation}
-
-A classe consequente pode ser determinada a partir de padrões de treinamento, assim como se esta é a classe dominante em determinado subespaço do espaço fuzzy. Como toda regra tem sua própria área de decisão, cujo tamanho é determinado pelo grau de certeza e pelo antecedente linguístico das funções de pertinência, a abordagem realiza mudança na dimensão da área de decisão por ponderação. Neste sentido o grau de certeza pode ser obtido a partir da Eq. \eqref{eq:eq5}.
-
-\begin{equation} \label{eq:eq5}
-CF_{j}=\frac{\beta_{Classe~C_{j}}(R_{j})-\overline{\beta}}{\sum_{k=1}^{c}\beta_{Classe~k}(R_{j})}
-\end{equation}
-onde $C_{j}$ é a classe consequente, e:
-
-\begin{equation} \label{eq:eq6}
-\overline{\beta}=\frac{\sum_{k\neq C_{j}}\beta_{Classe~k}(R_{j})}{(c-1)}
-\end{equation}
-
-As formulações indicadas nas equações \eqref{eq:eq5} e \eqref{eq:eq6} estendem a determinação do grau de certeza para um problema de classificação com $c$ classes.
+\begin{figure}[!htbp]
+	\centering
+	\subfigure[Imagem $01$]{\includegraphics[width = 0.4\textwidth]{figures/img01.jpg}}
+	\subfigure[Imagem $02$]{\includegraphics[width = 0.5\textwidth, height = 0.26\textheight]{figures/img02.jpg}}
+	\subfigure[Imagem $03$]{\includegraphics[width = 0.28\textwidth]{figures/img03.jpg}}
+	\caption{Imagens usadas na aplicação do algoritmo c-means para segmentação de imagens.}
+	\label{fig:images}
+\end{figure}
 
 %\subsection{Procedimentos Computacionais}
 \section{Resultados}
 
-Inicialmente o modelo foi descrito através de apenas duas variáveis do conjunto de dados, as quais correspondem ao comprimento e largura da sépala de todas as classes, afim de se visualizar as delimitações das regiões de classificação.
+Nessa seção serão apresentados os resultados dos experimentos descritos anteriormente na Seção \ref{section:descr}.
 
-Em seguida, todas as quatro variáveis do conjunto de dados são utilizadas para criação de um modelo de classificação geral. A abordagem empregada consiste na técnica de validação cruzada, onde são utilizados de maneira aleatória $70\%$ dos dados para treinamento e os $30\%$ dos dados restantes para validação do modelo.
+\subsection{Agrupamento de dados}
 
-Além disso, o número de funções de pertinência para descrição das variáveis linguísticas é alterado de $2$ até $15$ funções de pertinências. Todo o processo é repetido $25$ vezes para um número fixo de funções de pertinência, afim de se obter o erro médio de classificação, desconsiderando a natureza estocástica da escolha dos dados de treinamento de validação.
+O algoritmo \textit{c-means} implementado foi utilizado para agrupamento de dados do conjunto de dados \textt{fcmdata.dat}, considerando 4 agrupamentos. As Figuras \ref{fig:resul_cluster_cmeans} e \ref{fig:resul_cluster_fcm} ilustram os centros dos agrupamentos obtidos quando utilizado o algoritmo implementado e a função \texttt{fcm} do MATLAB, respectivamente.
 
-A escolha do tipo de função de pertinência é a mesma apresentada em [1], funções triangulares igualmente espaçadas. Na Figura \ref{fig:membership} são ilustradas $6$ funções de pertinência para cada uma das variáveis da base de dados \textit{Iris}, considerando as variáveis já normalizadas.
-
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=0.9\textwidth]{figures/membership.eps}
-\caption{Funções de pertinência para variável do banco de dados \textit{Iris}.}
-\label{fig:membership}
+\begin{figure}[!htbp]
+	\centering
+	\subfigure[Algoritmo desenvolvido.]{\includegraphics[width = 0.48\textwidth]{figures/data_cmeans.eps}\label{fig:resul_cluster_cmeans}}
+	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.48\textwidth]{figures/data_fcm.eps}\label{fig:resul_cluster_fcm}}
+	\caption{Comparação dos centros dos agrupamentos, considerando 4 agrupamentos, obtidos por meio do algoritmo c-means implementado e da função \texttt{fcm} do MATLAB.}
 \end{figure}
 
-\subsection{Regiões de Classificação}
-
-Como os dados possuem quatro variáveis de entradas, a visualização das regiões de classificação é prejudicada, para exemplificar, apenas duas variáveis, comprimento e largura da sépala, foram utilizadas no treinamento afim de se obter regiões de classificação bi-dimensionais, conforme dito anteriormente.
-
-Nesta etapa, a partir da definição do grau de certeza na observação das características do conjunto de dados, o sistema de classificação converge para uma discriminação das classes (espécies), como uma região de classificação, a partir da especificação de cada regra e da fronteira de classificação.
-
-As Figuras \ref{fig:product} e \ref{fig:minimum} ilustram as regiões de classificação obtidas a partir da utilização das \textit{t-normas}, produto e mínimo, respectivamente. Em ambas as Figuras foram utilizadas $8$ (oito) funções de pertinência triangulares para definição dos antecedentes das variáveis, $x_1$ e $x_2$. O motivo dessa escolha será abordado na Subseção \ref{subsection:training}.
-
-%Conforme indicado na Seção \ref{PC}, como função de duas variáveis, a área de decisão, com a utilização de t-norma, produto, é indicada na Figura \ref{fig:product}:
-
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=0.8\textwidth]{figures/product.eps}
-\caption{Região de classificação usando a \textit{t-norma} produto.}
-\label{fig:product}
-\end{figure}
-
-%A região de decisão com a utilização da t-norma, mínimo, é ilustrada na Figura \ref{fig:minimum}:
-
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=0.8\textwidth]{figures/minimum.eps}
-\caption{Região de classificação usando a \textit{t-norma} mínimo.}
-\label{fig:minimum}
-\end{figure}
-
-O particionamento do espaço de entrada (variáveis) fornece o suporte para formulação de regras que estejam relacionadas a este subespaço. Em termos práticos, a utilização destes dois tipos de conjunções lógicas, implica na análise das regras, sejam elas condicionais (relação interna entre antecedentes e consequentes) e incondicionais, de maneira geral afirmativas. 
-
-Nota-se que o processo de inferência, ou seja, o processo de avaliação das regras para cada subconjunto fuzzy acaba por estabelecer relações. Neste caso, ao combinar o conjunto de dados de entrada no sistema de classificação, ao menos uma regra deve ser ativada ponderada pelo grau de certeza.
-
-Além disso, os operadores mínimo e produto algébrico, utilizados como \textit{t-norma} no que se refere a inferência composicional de regras, estabelecem a interseção entre regras para a dedução de uma consequência lógica.
-
-\subsection{Treinamento e Validação}
-\label{subsection:training}
+\subsection{Segmentação de imagens}
+\label{subsection:seg}
 
 Na abordagem computacional, por meio da técnica de validação cruzada, cada conjunto de espécies foi separado de forma aleatória em subconjuntos de treinamento e validação representados, com dimensão de $70\%$ e $30\%$, respectivamente de cada classe de padrões.
 
@@ -469,25 +427,9 @@ A partir destes, houve a implementação das características de contexto adquir
 
 Os experimentos foram realizados $25$ vezes, para cada número de funções de pertinência de $2$ até $15$, com o propósito de se observar o limiar de convergência e paridade entre o erro do conjunto de treinamento e erro no conjunto de validação e eliminar a natureza estocástica da escolha do dados de treinamento de validação.
 
-As Figuras \ref{fig:error_product} e \ref{fig:error_minimum} apresentam a evolução do erro de classificação, quando avaliados os dados de treinamento e validação, em função do número de funções de pertinência.
-
 Nota-se que, para ambas as \textit{t-normas} o número dito ideal de funções de pertinência é $8$. De modo que, para um número menor de funções de pertinência ocorre o chamado \textit{underfitting}, e para um número maior de funções de pertinência ocorre o chamado \textit{overfitting}.
 
 %As amostras foram escolhidas aleatoriamente dentro dos subconjuntos e avaliadas para cada conjunto de regras, por n repetidas vezes.
-
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=0.8\textwidth]{figures/error_product.eps}
-\caption{Trajetória do erro em relação ao número de funções de pertinência, considerando a avaliação dos dados de treinamento e validação para a \textit{t-norma} produto.}
-\label{fig:error_product}
-\end{figure}
-
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=0.8\textwidth]{figures/error_minimum.eps}
-\caption{Trajetória do erro em relação ao número de funções de pertinência, considerando a avaliação dos dados de treinamento e validação para a \textit{t-norma} mínimo.}
-\label{fig:error_minimum}
-\end{figure}
 
 \newpage
 \section{Conclusões}
