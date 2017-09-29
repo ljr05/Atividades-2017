@@ -373,8 +373,7 @@ Com o objetivo de avaliar o algoritmo \textit{c-means} foram elaborados os segui
 
 \begin{enumerate}
 	\item Aplicação do algoritmo \textit{fuzzy c-means} desenvolvido ao conjunto de dados \texttt{fcmdata.dat} para 4 (quatro) grupos de agrupamentos e comparação dos resultados obtidos com a função \texttt{fcm} do MATLAB.
-	\item Adaptação do algoritmo anterior para o problema de segmentação de imagens e comparação dos resultados obtidos com a função \texttt{fcm} do MATLAB para o espaço de cores RGB utilizando diferentes quantidades de grupos de agrupamento.
-	%(nesse exercício você deve escolher o número de grupos de acordo com sua avaliação da imagem).
+	\item Adaptação do algoritmo anterior para o problema de segmentação de imagens e comparação dos resultados obtidos com a função \texttt{fcm} do MATLAB para o espaço de cores RGB utilizando diferentes quantidades de grupos de agrupamento, nesse experimento o número de grupos foi escolhido de acordo com uma avaliação visual da imagem.
 \end{enumerate}
 
 A Figura \ref{fig:fcmdata} e \ref{fig:images} ilustram os dados do conjunto \texttt{fcmdata.dat} e as imagens utilizadas na aplicação do algoritmo \textit{c-means} para segmentação de imagens, respectivamente.
@@ -402,12 +401,13 @@ Nessa seção serão apresentados os resultados dos experimentos descritos anter
 
 \subsection{Agrupamento de dados}
 
-O algoritmo \textit{c-means} implementado foi utilizado para agrupamento de dados do conjunto de dados \textt{fcmdata.dat}, considerando 4 agrupamentos. As Figuras \ref{fig:resul_cluster_cmeans} e \ref{fig:resul_cluster_fcm} ilustram os centros dos agrupamentos obtidos quando utilizado o algoritmo implementado e a função \texttt{fcm} do MATLAB, respectivamente.
+O algoritmo \textit{c-means} implementado foi utilizado para agrupamento de dados do conjunto de dados \texttt{fcmdata.dat}, considerando 4 agrupamentos, isto é $c=4$. As Figuras \ref{fig:resul_cluster_cmeans} e \ref{fig:resul_cluster_fcm} ilustram os centros dos agrupamentos obtidos quando utilizado o algoritmo implementado e a função \texttt{fcm} do MATLAB, respectivamente.
 
 \begin{figure}[!htbp]
 	\centering
-	\subfigure[Algoritmo desenvolvido.]{\includegraphics[width = 0.48\textwidth]{figures/data_cmeans.eps}\label{fig:resul_cluster_cmeans}}
-	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.48\textwidth]{figures/data_fcm.eps}\label{fig:resul_cluster_fcm}}
+	\subfigure[Algoritmo desenvolvido.]{\includegraphics[width = 0.25\textwidth]{figures/data_cmeans.eps}\label{fig:resul_cluster_cmeans}}
+	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.25\textwidth]{figures/data_fcm.eps}\label{fig:resul_cluster_fcm}}
+	
 	\caption{Comparação dos centros dos agrupamentos, considerando 4 agrupamentos, obtidos por meio do algoritmo c-means implementado e da função \texttt{fcm} do MATLAB.}
 \end{figure}
 
@@ -418,15 +418,14 @@ Na abordagem computacional, por meio da técnica de validação cruzada, cada co
 
 Para todas as classes, no total, quatro dados de entrada aplicados a três espécies, com $50$ amostras. Como ferramenta de aprendizagem, os conjuntos de treinamento e validação, foram determinados observando-se os percentuais em $35$ e $15$ amostras, respectivamente, para cada classe $C_{j}$.
 
-Neste sentido, na etapa de treinamento, a partir de aprendizado supervisionado, houve a classificação inicial das amostras, como função da quantidade de regras e dos graus de certeza, no sentido de se estabelecer as condições e parâmetros iniciais do sistema de classificação.
-
-A partir destes, houve a implementação das características de contexto adquiridas na etapa de treinamento, no sentido de aferir-se o desempenho do sistema de classificação.
-
-Os experimentos foram realizados $25$ vezes, para cada número de funções de pertinência de $2$ até $15$, com o propósito de se observar o limiar de convergência e paridade entre o erro do conjunto de treinamento e erro no conjunto de validação e eliminar a natureza estocástica da escolha do dados de treinamento de validação.
-
-Nota-se que, para ambas as \textit{t-normas} o número dito ideal de funções de pertinência é $8$. De modo que, para um número menor de funções de pertinência ocorre o chamado \textit{underfitting}, e para um número maior de funções de pertinência ocorre o chamado \textit{overfitting}.
-
-%As amostras foram escolhidas aleatoriamente dentro dos subconjuntos e avaliadas para cada conjunto de regras, por n repetidas vezes.
+\begin{figure}[!htbp]
+	\centering
+	\subfigure[$c=2$.]{\includegraphics[width = 0.4\textwidth]{figures/img1_2.eps}}
+	\subfigure[$c=2$.]{\includegraphics[width = 0.4\textwidth]{figures/matlab_img1_2.eps}}
+	
+	\caption{Comparação da segmentação da imagem 01 para $2 \leq c \leq 6$, obtidas por meio do algoritmo c-means implementado e da função \texttt{fcm} do MATLAB.}
+	\label{fig:resul_img01}
+\end{figure}
 
 \newpage
 \section{Conclusões}
