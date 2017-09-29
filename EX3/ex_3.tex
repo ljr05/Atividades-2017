@@ -286,7 +286,61 @@ Este trabalho apresenta a reprodução da metodologia e dos procedimentos experi
 
 \section{Introdução}
 
-De maneira geral os problemas de classificação são aproximações baseadas em dados  no sentido de mapear classes de um conjunto de variáveis. Em sistemas baseados em regras fuzzy, a identificação de padrões e consequente classificação destes a partir de um número finito (\textit{n}) de atributos é definido como:
+\textit{Fuzzy c-means}, é uma algoritmo para análise de agrupamentos associado à representação de uma classe ou grupo singular em um dado conjunto de dados. \textit{c} agrupamentos são representados por um vetor de centros \textit{C}.
+
+Para que se alcance este objetivo ou \textit{clusterização}, realiza-se um número de iterações no sentido de minimizar $J_{c}M(\mu_{h},C)$ dada por:
+
+\begin{equation}
+J=\sum_{i=1}^{N}\sum_{j=1}^{C}\mu_{ij}\lVert x_{i}-c_{j} \rVert^2
+\end{equation}
+
+onde:
+\begin{itemize}
+	\item $N\longrightarrow$ número de dados;
+	\item $\mathcal{C}\longrightarrow$ número de centros (\textit{clusters});
+	\item $c_{j}$ vetor de centro do \textit{j};
+	\item $\mu_{ij}\longrightarrow$ grau de pertinência do \textit{i}-ésimo dado $x_{i}$ no \textit{cluster} $j$.
+\end{itemize}
+
+A norma $\lVert x_{i}-c_{j} \rVert$ mede a similaridade (ou proximidade) de um dado $x_{i}$ para vetor de centro $c_{j}$ do \textit{j}. Em cada iteração, o algoritmo mantém o vetor centro para cada \textit{cluster}. 
+
+Para cada ponto $x_{i}$, o grau de pertinência para cada $c_{j}$ é calculado da seguinte forma:
+
+\begin{equation}
+\mu_{ij}=\frac{1}{\sum_{k=1}^{C}(\frac{\lVert x_{i}-c_{j} \rVert}{\lVert x_{i}-c_{k} \rVert})^\frac{2}{m-1}}
+\end{equation}
+onde \textit{m} é coeficiente de fuzzificação.
+
+O vetor centro $c_{j}$ é calculado como:
+
+\begin{equation}
+c_{j}=\frac{\sum_{i=1}^{N}\mu_{ij}^m x_{i}}{\sum_{1}^{N}\mu_{ij}^m}
+\end{equation}
+\begin{algorithm}[H]
+	\textbf{Agrupamento}\\
+	Determinar a quantidade de partições \textit{c}; \\
+	Determinar o erro máximo $e$;\\
+	Inicializar os centros aleatoriamente;\\
+	Inicializar o contador de iterações $t=0$;\\
+	\textbf{repita}\\
+	Incrementar $t$;\\
+	Atualizar $\mu_{h}$;\\
+	Atualizar $\mathcal{C}$;\\
+	\textbf{até que} $\lVert C^{(t)}-C^{(t-1)} \rVert$$<(e)$
+	\caption{Algoritmo Fuzzy c-Means}
+\end{algorithm}
+
+No início do algoritmo, o grau de pertinência para os dados é inicializado com um valor randômico $\theta_{ij}\in{[0,1]} ~|~\sum_{j}^{C}\mu_{ij}=1$.
+
+O coeficiente de \textit{fuzzificação} $m \in [1,\infty]$, mede a tolerância do \textit{cluster}. Este valor determina o quanto um \textit{cluster} pode sobrepor outro. Quanto maior este valor, maior a sobreposição entre os agrupamentos, ao passo que também se usa uma maior quantidade de dados que podem estar inseridos em subconjunto fuzzy em que o grau de pertinência não é nem 0 ou 1, mas sim, algo entre estes valores.
+
+O critério de parada é expresso em termos da acurácia dos graus de pertinência aplicados ao conjunto de dados, no sentido de determinar o número de iterações durante o processo de minimização. Esta é calculada utilizando o grau de pertinência de uma iteração para outra, considerando o maior valor de $\mu_{ij}$ para todos os dados $x_{i}$ em todos os \textit(clusters) $c_{j}$. A representação desta medida entre a iteração $~k~$ e $~k+1~$ é dada por:
+
+\begin{equation}
+\epsilon=\Delta_{i}^{N}\Delta_{j}^{C}|\mu_{ij}^{k+1} - \mu_{ij}^{k}| 
+\end{equation}
+onde $\mu_{ij}^{k}$ e $\mu_{ij}^{k+1}$ são os graus de pertinência nas respectivas iterações e operador $\Delta$, retorna o maior valor do vetor em análise.
+
 
 \begin{equation} \label{eq:eq1}
 Regra~R_{j}:~Se~x_{1}~ \text{é }A_{j1}~e~...~e~x_{n}~\text{é }A_{jn}~\text{então}~Classe~C_{j},~j=1,2,...,N
