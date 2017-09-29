@@ -92,6 +92,7 @@
 %%\pagestyle{mypagestyle}
 
 \usepackage[portuguese, boxed, ruled]{algorithm2e}
+\SetKwRepeat{Repita}{Faça}{Enquanto}
 \usepackage{algorithmic}
 
 \newtheorem{theorem}{Teorema}[section]
@@ -287,55 +288,50 @@ Um algoritmo de agrupamento organiza itens em grupos, baseado no critério de si
 
 % \textit{c} agrupamentos são representados por um vetor de centros \textit{C}.
 
-<<<<<<< HEAD
-O  Para que se alcance objetivo , realiza-se determinado número de iterações no sentido de minimizar a função de custo $J_{c}M(\mu_{h},C)$, em termos da distância euclidiana entre um ponto aleatório de um conjunto de dados e outro ponto, também aleatório, dito pertencente ao vetor de centros. 
-=======
-Para que se alcance o objetivo da \textit{clusterização}, realiza-se determinado número de iterações no sentido de minimizar a função de custo $J_{c}(\mu_{h},C)$, em termos da distância euclidiana entre um ponto aleatório de um conjunto de dados e outro ponto, também aleatório, dito pertencente ao vetor de centros. 
->>>>>>> 2d89d6191a861de75f52c44b082b8afe2d8f4b00
+Para que se alcance o objetivo da \textit{clusterização}, realiza-se determinado número de iterações no sentido de minimizar a função de custo $J_{c}(\mu_{h},C)$ definida na Eq. \eqref{eq:cost_function}, em termos da distância euclidiana entre um ponto de um conjunto de dados e o centro que de cada grupo.
 
-\begin{equation}
-J=\sum_{i=1}^{N}\sum_{j=1}^{C}\mu_{ij}^{m}\lVert x_{i}-c_{j} \rVert^2
+\begin{equation} \label{eq:cost_function}
+J=\sum_{i=1}^{N}\sum_{j=1}^{C}\mu_{ij}^{m}\lVert x_{i}-c_{j} \rVert^2,
 \end{equation}
 
 onde:
 \begin{itemize}
 	\item $N$: número de dados;
-	\item $\mathcal{C}$: número de grupos (\textit{clusters});
+	\item $C$: número de grupos (\textit{clusters});
 	\item $c_{j}$: centro do $j$-ésimo grupo;
 	\item $\mu_{ij}$: grau de pertinência do $i$-ésimo dado $x_{i}$ em relação ao $j$-ésimo grupo.
 \end{itemize}
 
-A norma, $\lVert x_{i}-c_{j} \rVert$, mede a similaridade (ou proximidade) de um dado elemento $x_{i}$ para vetor de centro $c_{j}$ do \textit{j}. Para cada ponto $x_{i}$, o grau de pertinência para cada $c_{j}$ é calculado da seguinte forma:
+A norma, $\lVert x_{i}-c_{j} \rVert$, mede a similaridade (ou proximidade) de um dado elemento $x_{i}$ para cada centro $c_{j}$ do $j$-ésimo grupo. Para cada ponto $x_{i}$, o grau de pertinência para cada $\mu_{ij}$ é calculado conforme a Eq. \eqref{eq:membership}:
 
 %Em cada iteração, o algoritmo mantém o vetor centro para cada \textit{cluster}. 
 
-\begin{equation}
-\mu_{ij}=\frac{1}{\sum_{k=1}^{C}(\frac{\lVert x_{i}-c_{j} \rVert}{\lVert x_{i}-c_{k} \rVert})^\frac{2}{m-1}}
+\begin{equation} \label{eq:membership}
+\mu_{ij}=\sum_{k=1}^{C}\left(\frac{\lVert x_{i}-c_{j} \rVert}{\lVert x_{i}-c_{k} \rVert}\right)^{-\frac{2}{m-1}},
 \end{equation}
-onde \textit{m} é coeficiente de fuzzificação.
+onde \textit{m} é coeficiente de fuzzificação e cada centro $c_{j}$ é calculado de acordo com a Eq. \eqref{eq:center}.
 
-Cada centro $c_{j}$ é calculado como:
-
-\begin{equation}
+\begin{equation} \label{eq:center}
 c_{j}=\frac{\sum_{i=1}^{N}\mu_{ij}^m x_{i}}{\sum_{1}^{N}\mu_{ij}^m}
 \end{equation}
 
-No início do algoritmo, o grau de pertinência para os dados é inicializado com um valor randômico no intervalo $[0,1]$ tal que $\sum_{j}^{C}\mu_{ij}=1$.
+Inicialmente, o grau de pertinência para os dados é inicializado com um valor randômico no intervalo $[0,1]$ tal que $\sum_{j}^{C}\mu_{ij}=1$.
 O coeficiente de fuzzificação $m \in [1,\infty)$, mede a tolerância do grupo. Este valor determina o quanto um grupo pode sobrepor outro. Quanto maior este valor, maior a sobreposição entre os agrupamentos.
 
-O critério de parada é expresso em termos da acurácia dos graus de pertinência aplicados ao conjunto de dados, no sentido de determinar o número de iterações durante o processo de minimização. Esta pode ser calculada utilizando a norma entre o vetor de centros, $C^k$ da $k$-ésima iteração, e o vetor $C^{k-1}$.
+O critério de parada é expresso em termos da acurácia dos graus de pertinência aplicados ao conjunto de dados, no sentido de determinar o número de iterações durante o processo de minimização. Esta pode ser calculada utilizando a norma entre o vetor de centros, $C^k$ da $k$-ésima iteração, e o vetor $C^{k-1}$. Assim, o algoritmo \textit{fuzzy c-Means} é proposto conforme o Algoritmo \ref{alg:cmeans} a seguir.
+\\
 
-\begin{algorithm}[H]
+\begin{algorithm}[H] \label{alg:cmeans}
 	\textbf{Agrupamento}\\
-	Determinar a quantidade de partições \textit{c}; \\
+	Determinar a quantidade de grupos \textit{c}; \\
 	Determinar o erro máximo $\epsilon$;\\
 	Inicializar os centros aleatoriamente;\\
 	Inicializar o contador de iterações $k=0$;\\
-	\textbf{repita}\\
-	Incrementar $k$;\\
-	Atualizar $\mu_{h}$;\\
-	Atualizar $C$;\\
-	\textbf{até que} $\lVert C^{(t)}-C^{(t-1)} \rVert < \epsilon$
+	\Repeat{$\lVert C^{(t)}-C^{(t-1)} \rVert < \epsilon$}{
+		Incrementar $k$;\\
+		Atualizar $\mu_{ij}$, dado pela Eq. \eqref{eq:membership};\\
+		Atualizar cada centro $c_j$, dado pela Eq. \eqref{eq:center};\\
+	}
 	\caption{Algoritmo Fuzzy c-Means}
 \end{algorithm}
 
@@ -345,17 +341,17 @@ O critério de parada é expresso em termos da acurácia dos graus de pertinênc
 Com o objetivo de avaliar o algoritmo \textit{c-means} foram elaborados os seguintes experimentos:
 
 \begin{enumerate}
-	\item Aplicação do algoritmo \textit{fuzzy c-means} desenvolvido ao conjunto de dados \texttt{fcmdata.dat} para 4 (quatro) grupos de agrupamentos e comparação dos resultados obtidos com a função \texttt{fcm} do MATLAB.
+	\item Aplicação do algoritmo \textit{c-means} desenvolvido ao conjunto de dados \texttt{fcm\_dataset.mat} para 4 (quatro) grupos de agrupamentos e comparação dos resultados obtidos com a função \texttt{fcm} do MATLAB.
 	\item Adaptação do algoritmo anterior para o problema de segmentação de imagens e comparação dos resultados obtidos com a função \texttt{fcm} do MATLAB para o espaço de cores RGB utilizando diferentes quantidades de grupos de agrupamento.
 	%(nesse exercício você deve escolher o número de grupos de acordo com sua avaliação da imagem).
 \end{enumerate}
 
-A Figura \ref{fig:fcmdata} e \ref{fig:images} ilustram os dados do conjunto \texttt{fcmdata.dat} e as imagens utilizadas na aplicação do algoritmo \textit{c-means} para segmentação de imagens, respectivamente.
+A Figura \ref{fig:fcmdata} e \ref{fig:images} ilustram os dados do conjunto \texttt{fcm\_dataset.mat} e as imagens utilizadas na aplicação do algoritmo \textit{c-means} para segmentação de imagens, respectivamente.
 
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/data.eps}
-	\caption{Conjunto de dados \texttt{fcmdata.dat}.}
+	\caption{Conjunto de dados \texttt{fcm\_dataset.mat}.}
 	\label{fig:fcmdata}
 \end{figure}
 
@@ -363,8 +359,8 @@ A Figura \ref{fig:fcmdata} e \ref{fig:images} ilustram os dados do conjunto \tex
 	\centering
 	\subfigure[Imagem $01$]{\includegraphics[width = 0.4\textwidth]{figures/img01.jpg}}
 	\subfigure[Imagem $02$]{\includegraphics[width = 0.5\textwidth, height = 0.26\textheight]{figures/img02.jpg}}
-	\subfigure[Imagem $03$]{\includegraphics[width = 0.28\textwidth]{figures/img03.jpg}}
-	\caption{Imagens usadas na aplicação do algoritmo c-means para segmentação de imagens.}
+	\subfigure[Imagem $03$]{\includegraphics[width = 0.3\textwidth]{figures/img03.jpg}}
+	\caption{Imagens usadas na aplicação do algoritmo \textit{c-Means} para segmentação de imagens.}
 	\label{fig:images}
 \end{figure}
 
@@ -375,29 +371,40 @@ Nesta seção serão apresentados os resultados dos experimentos descritos anter
 
 \subsection{Agrupamento de dados}
 
-O algoritmo \textit{c-Means} implementado foi utilizado para agrupamento de elementos do conjunto de dados \textit{fcmdata.dat}, considerando 4 grupos. Nas Figuras \ref{fig:resul_cluster_cmeans} e \ref{fig:resul_cluster_fcm} são ilustrados os centros dos agrupamentos obtidos quando utilizado o algoritmo implementado e a função \texttt{fcm} do MATLAB, respectivamente.
+O algoritmo \textit{c-Means} implementado foi utilizado para agrupamento de elementos do conjunto de dados \texttt{fcm\_dataset.mat}, considerando 4 grupos. Nas Figuras \ref{fig:resul_cluster_cmeans} e \ref{fig:resul_cluster_fcm} são ilustrados os centros dos agrupamentos obtidos quando utilizado o algoritmo implementado e a função \texttt{fcm} do MATLAB, respectivamente.
 
 \begin{figure}[!htbp]
 	\centering
-	\subfigure[Algoritmo desenvolvido.]{\includegraphics[width = 0.48\textwidth]{figures/data_cmeans.eps}\label{fig:resul_cluster_cmeans}}
-	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.48\textwidth]{figures/data_fcm.eps}\label{fig:resul_cluster_fcm}}
-	\caption{Comparação dos centros dos agrupamentos, considerando 4 agrupamentos, obtidos por meio do algoritmo c-means implementado e da função \texttt{fcm} do MATLAB.}
+	\subfigure[Algoritmo desenvolvido.]{\includegraphics[width = 0.49\textwidth]{figures/data_cmeans.eps}\label{fig:resul_cluster_cmeans}}
+	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.49\textwidth]{figures/data_fcm.eps}\label{fig:resul_cluster_fcm}}
+	\caption{Comparação dos centros dos agrupamentos, considerando 4 agrupamentos, obtidos por meio do algoritmo \textit{c-Means} implementado e da função \texttt{fcm} do MATLAB.}
 \end{figure}
 
 \subsection{Segmentação de imagens}
 \label{subsection:seg}
 
+\begin{figure}[!htbp]
+	\centering
+	\subfigure[Algoritmo desenvolvido.]{\includegraphics[width = 0.49\textwidth]{figures/img1_4.eps}\label{fig:img1.eps}}
+	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.49\textwidth]{figures/matlab_img1_4.eps}\label{fig:img1_matlab.eps}}
+	\caption{Comparação das imagens, considerando 4 agrupamentos, obtidas por meio do algoritmo \textit{c-Means} implementado e da função \texttt{fcm} do MATLAB.}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\centering
+	\subfigure[Algoritmo desenvolvido.]{\includegraphics[width = 0.49\textwidth]{figures/img2_3.eps}\label{fig:img2.eps}}
+	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.49\textwidth]{figures/matlab_img2_3.eps}\label{fig:img2_matlab.eps}}
+	\caption{Comparação das imagens, considerando 3 agrupamentos, obtidas por meio do algoritmo \textit{c-Means} implementado e da função \texttt{fcm} do MATLAB.}
+\end{figure}
+
+\begin{figure}[!htbp]
+	\centering
+	\subfigure[Algoritmo desenvolvido.]{\includegraphics[width = 0.49\textwidth]{figures/img3_6.eps}\label{fig:img3.eps}}
+	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.49\textwidth]{figures/matlab_img3_6.eps}\label{fig:img3_matlab.eps}}
+	\caption{Comparação das imagens, considerando 6 agrupamentos, obtidas por meio do algoritmo \textit{c-Means} implementado e da função \texttt{fcm} do MATLAB.}
+\end{figure}
+
 Na abordagem computacional, por meio da técnica de validação cruzada, cada conjunto de espécies foi separado de forma aleatória em subconjuntos de treinamento e validação representados, com dimensão de $70\%$ e $30\%$, respectivamente de cada classe de padrões.
-
-Para todas as classes, no total, quatro dados de entrada aplicados a três espécies, com $50$ amostras. Como ferramenta de aprendizagem, os conjuntos de treinamento e validação, foram determinados observando-se os percentuais em $35$ e $15$ amostras, respectivamente, para cada classe $C_{j}$.
-
-Neste sentido, na etapa de treinamento, a partir de aprendizado supervisionado, houve a classificação inicial das amostras, como função da quantidade de regras e dos graus de certeza, no sentido de se estabelecer as condições e parâmetros iniciais do sistema de classificação.
-
-A partir destes, houve a implementação das características de contexto adquiridas na etapa de treinamento, no sentido de aferir-se o desempenho do sistema de classificação.
-
-Os experimentos foram realizados $25$ vezes, para cada número de funções de pertinência de $2$ até $15$, com o propósito de se observar o limiar de convergência e paridade entre o erro do conjunto de treinamento e erro no conjunto de validação e eliminar a natureza estocástica da escolha do dados de treinamento de validação.
-
-Nota-se que, para ambas as \textit{t-normas} o número dito ideal de funções de pertinência é $8$. De modo que, para um número menor de funções de pertinência ocorre o chamado \textit{underfitting}, e para um número maior de funções de pertinência ocorre o chamado \textit{overfitting}.
 
 %As amostras foram escolhidas aleatoriamente dentro dos subconjuntos e avaliadas para cada conjunto de regras, por n repetidas vezes.
 
@@ -406,17 +413,17 @@ Nota-se que, para ambas as \textit{t-normas} o número dito ideal de funções d
 
 A utilização de métodos de classificação oferece uma solução baseada em conhecimento adquirido por aprendizagem ativa. Nesta abordagem, a classificação de pontos afins com relação aos seus respectivos centros, é relevante para análise de similaridade entre conjuntos de dados não-rotulados. 
 
-Com a aplicação de algoritmo \textit{fuzzy c-Means} observou-se na realização dos experimentos, o efeito da aplicação das relações nebulosas e avaliação baseada em acurácia, em processos de inferência, propiciando distinção entre os dados de acordo com suas características de contexto.
+Com a aplicação de algoritmo \textit{fuzzy c-Means} observou-se na realização dos experimentos, o efeito da aplicação das relações nebulosas e avaliação baseada em acurácia propiciando distinção entre os dados de acordo com suas características de contexto.
 
-Nos experimentos de segmentação de imagem e no agrupamento de um conjunto de dados não-rotulados, a rotina implementada apresentou resultado bastante similar tomando-se como referência a função \texttt{fcm} do MATLAB\textcopyright, apresentado desempenho satisfatório, conforme indicado na Seção \ref{sec:results}.
+Nos experimentos de segmentação de imagem e no agrupamento de um conjunto de dados não-rotulados, a algoritmo implementado apresentou resultado bastante similar tomando-se como referência a função \texttt{fcm} do MATLAB\textcopyright, apresentado desempenho satisfatório, conforme indicado na Seção \ref{sec:results}.
 
 \newpage
 
-\section*{Referências}
+\section*{Bibliografias Consultadas}
 \addcontentsline{toc}{section}{\protect\numberline{}Referências}%
 
 \noindent [1] COUTINHO, P. H. S. Proposta de Novos Algoritmos Híbridos de Clusterização Fuzzy e suas aplicações. Trabalho de Conclusão de Curso. Departamento de Ciências Exatas e Tecnológicas. Universidade Estadual de Santa Cruz. Ilhéus-Bahia, 2017.
 
-[2] CANNON, Robert L.; DAVE, Jitendra V.; BEZDEK, James C. Efficient implementation of the fuzzy c-means clustering algorithms. IEEE transactions on pattern analysis and machine intelligence, n. 2, p. 248-255, 1986.
+\noindent [2] CANNON, Robert L.; DAVE, Jitendra V.; BEZDEK, James C. Efficient implementation of the fuzzy c-means clustering algorithms. IEEE transactions on pattern analysis and machine intelligence, n. 2, p. 248-255, 1986.
 
 \end{document}
