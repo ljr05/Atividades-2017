@@ -287,10 +287,14 @@ Um algoritmo de agrupamento organiza itens em grupos, baseado no critério de si
 
 % \textit{c} agrupamentos são representados por um vetor de centros \textit{C}.
 
+<<<<<<< HEAD
 O  Para que se alcance objetivo , realiza-se determinado número de iterações no sentido de minimizar a função de custo $J_{c}M(\mu_{h},C)$, em termos da distância euclidiana entre um ponto aleatório de um conjunto de dados e outro ponto, também aleatório, dito pertencente ao vetor de centros. 
+=======
+Para que se alcance o objetivo da \textit{clusterização}, realiza-se determinado número de iterações no sentido de minimizar a função de custo $J_{c}(\mu_{h},C)$, em termos da distância euclidiana entre um ponto aleatório de um conjunto de dados e outro ponto, também aleatório, dito pertencente ao vetor de centros. 
+>>>>>>> 2d89d6191a861de75f52c44b082b8afe2d8f4b00
 
 \begin{equation}
-J=\sum_{i=1}^{N}\sum_{j=1}^{C}\mu_{ij}\lVert x_{i}-c_{j} \rVert^2
+J=\sum_{i=1}^{N}\sum_{j=1}^{C}\mu_{ij}^{m}\lVert x_{i}-c_{j} \rVert^2
 \end{equation}
 
 onde:
@@ -371,7 +375,7 @@ Nesta seção serão apresentados os resultados dos experimentos descritos anter
 
 \subsection{Agrupamento de dados}
 
-O algoritmo \textit{c-Means} implementado foi utilizado para agrupamento de dados do conjunto de dados \textit{fcmdata.dat}, considerando 4 agrupamentos. As Figuras \ref{fig:resul_cluster_cmeans} e \ref{fig:resul_cluster_fcm} ilustram os centros dos agrupamentos obtidos quando utilizado o algoritmo implementado e a função \texttt{fcm} do MATLAB, respectivamente.
+O algoritmo \textit{c-Means} implementado foi utilizado para agrupamento de elementos do conjunto de dados \textit{fcmdata.dat}, considerando 4 grupos. Nas Figuras \ref{fig:resul_cluster_cmeans} e \ref{fig:resul_cluster_fcm} são ilustrados os centros dos agrupamentos obtidos quando utilizado o algoritmo implementado e a função \texttt{fcm} do MATLAB, respectivamente.
 
 \begin{figure}[!htbp]
 	\centering
@@ -400,7 +404,7 @@ Nota-se que, para ambas as \textit{t-normas} o número dito ideal de funções d
 \newpage
 \section{Conclusões}
 
-A utilização de métodos de classificação baseados em inferência, oferece uma solução baseada em conhecimento adquirido por aprendizagem ativa. Nesta abordagem, a classificação de pontos afins com relação aos seus respectivos centros, é relevante para análise de similaridade entre conjuntos de dados não-rotulados. 
+A utilização de métodos de classificação oferece uma solução baseada em conhecimento adquirido por aprendizagem ativa. Nesta abordagem, a classificação de pontos afins com relação aos seus respectivos centros, é relevante para análise de similaridade entre conjuntos de dados não-rotulados. 
 
 Com a aplicação de algoritmo \textit{fuzzy c-Means} observou-se na realização dos experimentos, o efeito da aplicação das relações nebulosas e avaliação baseada em acurácia, em processos de inferência, propiciando distinção entre os dados de acordo com suas características de contexto.
 
@@ -411,10 +415,8 @@ Nos experimentos de segmentação de imagem e no agrupamento de um conjunto de d
 \section*{Referências}
 \addcontentsline{toc}{section}{\protect\numberline{}Referências}%
 
+\noindent [1] COUTINHO, P. H. S. Proposta de Novos Algoritmos Híbridos de Clusterização Fuzzy e suas aplicações. Trabalho de Conclusão de Curso. Departamento de Ciências Exatas e Tecnológicas. Universidade Estadual de Santa Cruz. Ilhéus-Bahia, 2017.
 
-[1] CANNON, Robert L.; DAVE, Jitendra V.; BEZDEK, James C. Efficient implementation of the fuzzy c-means clustering algorithms. IEEE transactions on pattern analysis and machine intelligence, n. 2, p. 248-255, 1986.
-
-
-\noindent [2] COUTINHO, P. H. S. Proposta de Novos Algoritmos Híbridos de Clusterização Fuzzy e suas aplicações. Trabalho de Conclusão de Curso. Departamento de Ciências Exatas e Tecnológicas. Universidade Estadual de Santa Cruz. Ilhéus-Bahia, 2017.
+[2] CANNON, Robert L.; DAVE, Jitendra V.; BEZDEK, James C. Efficient implementation of the fuzzy c-means clustering algorithms. IEEE transactions on pattern analysis and machine intelligence, n. 2, p. 248-255, 1986.
 
 \end{document}
