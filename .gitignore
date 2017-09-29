@@ -33,9 +33,12 @@
 *.su
 
 # Latex
+*.synctex.gz
 *.bbl
 *.blg
 *.log
+*.lof
+*.toc
 *.pdf
 *.aux
 *.out
