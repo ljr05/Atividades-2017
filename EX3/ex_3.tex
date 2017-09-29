@@ -281,13 +281,13 @@ Prof. Dr. André Paim Lemos
 %\numberwithin{equation}{section}
 
 \section{Introdução}
-Um algoritmo  de clusterização organiza itens em grupos,  baseado no critério de similaridade. O algoritmo \textit{fuzzy c-Means} realiza agrupamentos de tal forma que determinado item pode pertencer a mais de um grupo afim, em que o grau de pertinência para cada item é dado por uma distribuição de probabilidade sobre os \textit{clusters}. 
+Um algoritmo de agrupamento organiza itens em grupos, baseado no critério de similaridade. O algoritmo \textit{fuzzy c-Means} realiza agrupamentos de tal forma que determinado dado possuiu um grau de pertinência em relação a cada grupo, de modo que um maior grau de pertinência representa um maior compatibilidade do dado com o respectivo grupo, \textit{cluster}. 
 
-\textit{Fuzzy c-means}, é um algoritmo para análise de agrupamentos associado à representação de uma classe ou grupo singular em um dado conjunto de dados. \textit{c} agrupamentos são representados por um vetor de centros \textit{C}.
+\textit{Fuzzy c-Means}, é um algoritmo para análise de agrupamentos associado à representação de uma classe ou grupo singular em um dado conjunto de dados. Considerada como uma técnica de aprendizado não-supervisionado e raciocínio aproximado, possui aplicações diversas em tratativas de classificação de dados, dentre as quais aplicação à tarefa de classificação dados e segmentação de imagens abordadas neste trabalho.
 
-Considerada como uma técnica de aprendizado não-supervisionado e raciocínio aproximado, possui aplicações diversas em tratativas de classificação, dentre as quais aplicação à tarefa de segmentação de imagens e inferência de dados abordadas neste trabalho.
+% \textit{c} agrupamentos são representados por um vetor de centros \textit{C}.
 
-Para que se alcance objetivo da \textit{clusterização}, realiza-se determinado número de iterações no sentido de minimizar a função de custo $J_{c}M(\mu_{h},C)$, em termos da distância euclidiana entre um ponto aleatório de um conjunto de dados e outro ponto, também aleatório, dito pertencente ao vetor de centros. 
+O  Para que se alcance objetivo , realiza-se determinado número de iterações no sentido de minimizar a função de custo $J_{c}M(\mu_{h},C)$, em termos da distância euclidiana entre um ponto aleatório de um conjunto de dados e outro ponto, também aleatório, dito pertencente ao vetor de centros. 
 
 \begin{equation}
 J=\sum_{i=1}^{N}\sum_{j=1}^{C}\mu_{ij}\lVert x_{i}-c_{j} \rVert^2
@@ -295,49 +295,43 @@ J=\sum_{i=1}^{N}\sum_{j=1}^{C}\mu_{ij}\lVert x_{i}-c_{j} \rVert^2
 
 onde:
 \begin{itemize}
-	\item $N\longrightarrow$ número de dados;
-	\item $\mathcal{C}\longrightarrow$ número de centros (\textit{clusters});
-	\item $c_{j}\longrightarrow$ vetor de centro do \textit{j};
-	\item $\mu_{ij}\longrightarrow$ grau de pertinência do \textit{i}-ésimo dado $x_{i}$ no \textit{cluster} $j$.
+	\item $N$: número de dados;
+	\item $\mathcal{C}$: número de grupos (\textit{clusters});
+	\item $c_{j}$: centro do $j$-ésimo grupo;
+	\item $\mu_{ij}$: grau de pertinência do $i$-ésimo dado $x_{i}$ em relação ao $j$-ésimo grupo.
 \end{itemize}
 
-A norma $\lVert x_{i}-c_{j} \rVert$ mede a similaridade (ou proximidade) de um dado $x_{i}$ para vetor de centro $c_{j}$ do \textit{j}. Em cada iteração, o algoritmo mantém o vetor centro para cada \textit{cluster}. 
+A norma, $\lVert x_{i}-c_{j} \rVert$, mede a similaridade (ou proximidade) de um dado elemento $x_{i}$ para vetor de centro $c_{j}$ do \textit{j}. Para cada ponto $x_{i}$, o grau de pertinência para cada $c_{j}$ é calculado da seguinte forma:
 
-Para cada ponto $x_{i}$, o grau de pertinência para cada $c_{j}$ é calculado da seguinte forma:
+%Em cada iteração, o algoritmo mantém o vetor centro para cada \textit{cluster}. 
 
 \begin{equation}
 \mu_{ij}=\frac{1}{\sum_{k=1}^{C}(\frac{\lVert x_{i}-c_{j} \rVert}{\lVert x_{i}-c_{k} \rVert})^\frac{2}{m-1}}
 \end{equation}
 onde \textit{m} é coeficiente de fuzzificação.
 
-O vetor centro $c_{j}$ é calculado como:
+Cada centro $c_{j}$ é calculado como:
 
 \begin{equation}
 c_{j}=\frac{\sum_{i=1}^{N}\mu_{ij}^m x_{i}}{\sum_{1}^{N}\mu_{ij}^m}
 \end{equation}
 
-No início do algoritmo, o grau de pertinência para os dados é inicializado com um valor randômico $\theta_{ij}\in{[0,1]} ~|~\sum_{j}^{C}\mu_{ij}=1$.
+No início do algoritmo, o grau de pertinência para os dados é inicializado com um valor randômico no intervalo $[0,1]$ tal que $\sum_{j}^{C}\mu_{ij}=1$.
+O coeficiente de fuzzificação $m \in [1,\infty)$, mede a tolerância do grupo. Este valor determina o quanto um grupo pode sobrepor outro. Quanto maior este valor, maior a sobreposição entre os agrupamentos.
 
-O coeficiente de \textit{fuzzificação} $m \in [1,\infty]$, mede a tolerância do \textit{cluster}. Este valor determina o quanto um \textit{cluster} pode sobrepor outro. Quanto maior este valor, maior a sobreposição entre os agrupamentos, ao passo que também se usa uma maior quantidade de dados que podem estar inseridos em subconjunto fuzzy em que o grau de pertinência não é nem 0 ou 1, mas sim, algo entre estes valores.
-
-O critério de parada é expresso em termos da acurácia dos graus de pertinência aplicados ao conjunto de dados, no sentido de determinar o número de iterações durante o processo de minimização. Esta é calculada utilizando o grau de pertinência de uma iteração para outra, considerando o maior valor de $\mu_{ij}$ para todos os dados $x_{i}$ em todos os \textit(clusters) $c_{j}$. A representação desta medida entre a iteração $~k~$ e $~k+1~$ é dada por:
-
-\begin{equation}
-\epsilon=\Delta_{i}^{N}\Delta_{j}^{C}|\mu_{ij}^{k+1} - \mu_{ij}^{k}| 
-\end{equation}
-onde $\mu_{ij}^{k}$ e $\mu_{ij}^{k+1}$ são os graus de pertinência nas respectivas iterações e o operador $\Delta$, retorna o maior valor do vetor em análise.
+O critério de parada é expresso em termos da acurácia dos graus de pertinência aplicados ao conjunto de dados, no sentido de determinar o número de iterações durante o processo de minimização. Esta pode ser calculada utilizando a norma entre o vetor de centros, $C^k$ da $k$-ésima iteração, e o vetor $C^{k-1}$.
 
 \begin{algorithm}[H]
 	\textbf{Agrupamento}\\
 	Determinar a quantidade de partições \textit{c}; \\
-	Determinar o erro máximo $e$;\\
+	Determinar o erro máximo $\epsilon$;\\
 	Inicializar os centros aleatoriamente;\\
-	Inicializar o contador de iterações $t=0$;\\
+	Inicializar o contador de iterações $k=0$;\\
 	\textbf{repita}\\
-	Incrementar $t$;\\
+	Incrementar $k$;\\
 	Atualizar $\mu_{h}$;\\
-	Atualizar $\mathcal{C}$;\\
-	\textbf{até que} $\lVert C^{(t)}-C^{(t-1)} \rVert$$<(e)$
+	Atualizar $C$;\\
+	\textbf{até que} $\lVert C^{(t)}-C^{(t-1)} \rVert < \epsilon$
 	\caption{Algoritmo Fuzzy c-Means}
 \end{algorithm}
 
@@ -408,9 +402,9 @@ Nota-se que, para ambas as \textit{t-normas} o número dito ideal de funções d
 
 A utilização de métodos de classificação baseados em inferência, oferece uma solução baseada em conhecimento adquirido por aprendizagem ativa. Nesta abordagem, a classificação de pontos afins com relação aos seus respectivos centros, é relevante para análise de similaridade entre conjuntos de dados não-rotulados. 
 
-\noindent Com a aplicação de algoritmo \textit{fuzzy c-Means} observou-se na realização dos experimentos, o efeito da aplicação das relações nebulosas e avaliação baseada em acurácia, em processos de inferência, propiciando distinção entre os dados de acordo com suas características de contexto.
+Com a aplicação de algoritmo \textit{fuzzy c-Means} observou-se na realização dos experimentos, o efeito da aplicação das relações nebulosas e avaliação baseada em acurácia, em processos de inferência, propiciando distinção entre os dados de acordo com suas características de contexto.
 
-\noindent Nos experimentos de segmentação de imagem e no agrupamento de um conjunto de dados não-rotulados, a rotina implementada apresentou resultado bastante similar tomando-se como referência a função \texttt{fcm} do MATLAB\textcopyright, apresentado desempenho satisfatório, conforme indicado na seção \ref{sec:results}.
+Nos experimentos de segmentação de imagem e no agrupamento de um conjunto de dados não-rotulados, a rotina implementada apresentou resultado bastante similar tomando-se como referência a função \texttt{fcm} do MATLAB\textcopyright, apresentado desempenho satisfatório, conforme indicado na Seção \ref{sec:results}.
 
 \newpage
 
