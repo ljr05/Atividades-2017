@@ -280,13 +280,12 @@ Prof. Dr. André Paim Lemos
 %\providecommand{\sin}{} \renewcommand{\sin}{\hspace{2pt}\mathrm{sen}}
 %\numberwithin{equation}{section}
 
-{\abstract
-Um algoritmo de clusterização organiza itens em grupos,  baseado no critério de similaridade. O algoritmo \textit{fuzzy c-Means} realiza agrupamentos de tal forma que determinado item pode pertencer a mais de um grupo afim, em que o grau de pertinência para cada item é dado por uma distribuição de probabilidade sobre os clusters.Considerada como uma técnica de aprendizado não-supervionado e raciocínio aproximada, possui aplicações diversas para  Neste trabalho é apresentada aplicação deste algoritmo de agrupamento para a tarefa de segmentação de imagens e inferência de dados a partir de aprendizado não-supervisionado e raciocínio aproximado. 
-\newpage
-
 \section{Introdução}
+Um algoritmo  de clusterização organiza itens em grupos,  baseado no critério de similaridade. O algoritmo \textit{fuzzy c-Means} realiza agrupamentos de tal forma que determinado item pode pertencer a mais de um grupo afim, em que o grau de pertinência para cada item é dado por uma distribuição de probabilidade sobre os \textit{clusters}. 
 
-\textit{Fuzzy c-means}, é uma algoritmo para análise de agrupamentos associado à representação de uma classe ou grupo singular em um dado conjunto de dados. \textit{c} agrupamentos são representados por um vetor de centros \textit{C}.
+\textit{Fuzzy c-means}, é um algoritmo para análise de agrupamentos associado à representação de uma classe ou grupo singular em um dado conjunto de dados. \textit{c} agrupamentos são representados por um vetor de centros \textit{C}.
+
+Considerada como uma técnica de aprendizado não-supervisionado e raciocínio aproximado, possui aplicações diversas em tratativas de classificação, dentre as quais aplicação à tarefa de segmentação de imagens e inferência de dados abordadas neste trabalho.
 
 Para que se alcance este objetivo ou \textit{clusterização}, realiza-se um número de iterações no sentido de minimizar $J_{c}M(\mu_{h},C)$ dada por:
 
@@ -298,7 +297,7 @@ onde:
 \begin{itemize}
 	\item $N\longrightarrow$ número de dados;
 	\item $\mathcal{C}\longrightarrow$ número de centros (\textit{clusters});
-	\item $c_{j}$ vetor de centro do \textit{j};
+	\item $c_{j}\longrightarrow$ vetor de centro do \textit{j};
 	\item $\mu_{ij}\longrightarrow$ grau de pertinência do \textit{i}-ésimo dado $x_{i}$ no \textit{cluster} $j$.
 \end{itemize}
 
@@ -326,8 +325,7 @@ O critério de parada é expresso em termos da acurácia dos graus de pertinênc
 \begin{equation}
 \epsilon=\Delta_{i}^{N}\Delta_{j}^{C}|\mu_{ij}^{k+1} - \mu_{ij}^{k}| 
 \end{equation}
-onde $\mu_{ij}^{k}$ e $\mu_{ij}^{k+1}$ são os graus de pertinência nas respectivas iterações e operador $\Delta$, retorna o maior valor do vetor em análise.
-
+onde $\mu_{ij}^{k}$ e $\mu_{ij}^{k+1}$ são os graus de pertinência nas respectivas iterações e o operador $\Delta$, retorna o maior valor do vetor em análise.
 
 \begin{algorithm}[H]
 	\textbf{Agrupamento}\\
@@ -343,32 +341,6 @@ onde $\mu_{ij}^{k}$ e $\mu_{ij}^{k+1}$ são os graus de pertinência nas respect
 	\caption{Algoritmo Fuzzy c-Means}
 \end{algorithm}
 
-
-
-\begin{equation} \label{eq:eq1}
-Regra~R_{j}:~Se~x_{1}~ \text{é }A_{j1}~e~...~e~x_{n}~\text{é }A_{jn}~\text{então}~Classe~C_{j},~j=1,2,...,N
-\end{equation}
-onde:
-\begin{itemize}
-\item $x={x_{1},...,x_{n}}$: $n-$dimensional vetor de padrões;
-\item $A_{ij}$: valor linguístico antecedente, $~(i=1,2,...,n)$;
-\item $C_{j}$: classe consequente;
-\item $N$: número de regras fuzzy SE-ENTÃO.
-\end{itemize}
-
-Na abordagem do artigo a ponderação das regras SE-ENTÃO com os graus de certeza é dada por:
-\begin{equation} \label{eq:eq2}
-Regra~R_{j}:~Se~x_{i}~\text{é } A_{j1}~e...e~x_{n}~\text{é}~A_{jn}~\text{então}~Classe~C_{j}~\text{com}~CF_{j}, j=1,2,...,N
-\end{equation}
-onde $CF_{j}$ é o grau de certeza do consequente, $C_{j}$, de cada regra fuzzy SE-ENTÃO $R_{j}$, é um número real no intervalo [0,1].
-
-Para esta aplicação foi utilizada a base de dados \textit{Iris} (1936), do biólogo e estatístico britânico Ronald Fisher, para três espécies da flor \textit{Iris} (\textit{setosa, virginica, versicolor}), com $50$ amostras de cada espécie totalizando $150$ amostras no conjunto de dados. Considera-se o conjunto de dados separáveis pela discriminação das seguintes características:
-
-\begin{itemize}
-\item comprimento e largura da sépala;
-\item comprimento e largura da pétala.
-\end{itemize}
-
 \section{Descrição do Experimentos}
 \label{section:descr}
 
@@ -376,7 +348,8 @@ Com o objetivo de avaliar o algoritmo \textit{c-means} foram elaborados os segui
 
 \begin{enumerate}
 	\item Aplicação do algoritmo \textit{fuzzy c-means} desenvolvido ao conjunto de dados \texttt{fcmdata.dat} para 4 (quatro) grupos de agrupamentos e comparação dos resultados obtidos com a função \texttt{fcm} do MATLAB.
-	\item Adaptação do algoritmo anterior para o problema de segmentação de imagens e comparação dos resultados obtidos com a função \texttt{fcm} do MATLAB para o espaço de cores RGB utilizando diferentes quantidades de grupos de agrupamento, nesse experimento o número de grupos foi escolhido de acordo com uma avaliação visual da imagem.
+	\item Adaptação do algoritmo anterior para o problema de segmentação de imagens e comparação dos resultados obtidos com a função \texttt{fcm} do MATLAB para o espaço de cores RGB utilizando diferentes quantidades de grupos de agrupamento.
+	%(nesse exercício você deve escolher o número de grupos de acordo com sua avaliação da imagem).
 \end{enumerate}
 
 A Figura \ref{fig:fcmdata} e \ref{fig:images} ilustram os dados do conjunto \texttt{fcmdata.dat} e as imagens utilizadas na aplicação do algoritmo \textit{c-means} para segmentação de imagens, respectivamente.
@@ -398,19 +371,18 @@ A Figura \ref{fig:fcmdata} e \ref{fig:images} ilustram os dados do conjunto \tex
 \end{figure}
 
 %\subsection{Procedimentos Computacionais}
-\section{Resultados}
+\section{Resultados} \label{sec:results}
 
-Nessa seção serão apresentados os resultados dos experimentos descritos anteriormente na Seção \ref{section:descr}.
+Nesta seção serão apresentados os resultados dos experimentos descritos anteriormente na Seção \ref{section:descr}.
 
 \subsection{Agrupamento de dados}
 
-O algoritmo \textit{c-means} implementado foi utilizado para agrupamento de dados do conjunto de dados \texttt{fcmdata.dat}, considerando 4 agrupamentos, isto é $c=4$. As Figuras \ref{fig:resul_cluster_cmeans} e \ref{fig:resul_cluster_fcm} ilustram os centros dos agrupamentos obtidos quando utilizado o algoritmo implementado e a função \texttt{fcm} do MATLAB, respectivamente.
+O algoritmo \textit{c-Means} implementado foi utilizado para agrupamento de dados do conjunto de dados \textit{fcmdata.dat}, considerando 4 agrupamentos. As Figuras \ref{fig:resul_cluster_cmeans} e \ref{fig:resul_cluster_fcm} ilustram os centros dos agrupamentos obtidos quando utilizado o algoritmo implementado e a função \texttt{fcm} do MATLAB, respectivamente.
 
 \begin{figure}[!htbp]
 	\centering
-	\subfigure[Algoritmo desenvolvido.]{\includegraphics[width = 0.25\textwidth]{figures/data_cmeans.eps}\label{fig:resul_cluster_cmeans}}
-	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.25\textwidth]{figures/data_fcm.eps}\label{fig:resul_cluster_fcm}}
-	
+	\subfigure[Algoritmo desenvolvido.]{\includegraphics[width = 0.48\textwidth]{figures/data_cmeans.eps}\label{fig:resul_cluster_cmeans}}
+	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.48\textwidth]{figures/data_fcm.eps}\label{fig:resul_cluster_fcm}}
 	\caption{Comparação dos centros dos agrupamentos, considerando 4 agrupamentos, obtidos por meio do algoritmo c-means implementado e da função \texttt{fcm} do MATLAB.}
 \end{figure}
 
@@ -421,28 +393,34 @@ Na abordagem computacional, por meio da técnica de validação cruzada, cada co
 
 Para todas as classes, no total, quatro dados de entrada aplicados a três espécies, com $50$ amostras. Como ferramenta de aprendizagem, os conjuntos de treinamento e validação, foram determinados observando-se os percentuais em $35$ e $15$ amostras, respectivamente, para cada classe $C_{j}$.
 
-\begin{figure}[!htbp]
-	\centering
-	\subfigure[$c=2$.]{\includegraphics[width = 0.4\textwidth]{figures/img1_2.eps}}
-	\subfigure[$c=2$.]{\includegraphics[width = 0.4\textwidth]{figures/matlab_img1_2.eps}}
-	
-	\caption{Comparação da segmentação da imagem 01 para $2 \leq c \leq 6$, obtidas por meio do algoritmo c-means implementado e da função \texttt{fcm} do MATLAB.}
-	\label{fig:resul_img01}
-\end{figure}
+Neste sentido, na etapa de treinamento, a partir de aprendizado supervisionado, houve a classificação inicial das amostras, como função da quantidade de regras e dos graus de certeza, no sentido de se estabelecer as condições e parâmetros iniciais do sistema de classificação.
+
+A partir destes, houve a implementação das características de contexto adquiridas na etapa de treinamento, no sentido de aferir-se o desempenho do sistema de classificação.
+
+Os experimentos foram realizados $25$ vezes, para cada número de funções de pertinência de $2$ até $15$, com o propósito de se observar o limiar de convergência e paridade entre o erro do conjunto de treinamento e erro no conjunto de validação e eliminar a natureza estocástica da escolha do dados de treinamento de validação.
+
+Nota-se que, para ambas as \textit{t-normas} o número dito ideal de funções de pertinência é $8$. De modo que, para um número menor de funções de pertinência ocorre o chamado \textit{underfitting}, e para um número maior de funções de pertinência ocorre o chamado \textit{overfitting}.
+
+%As amostras foram escolhidas aleatoriamente dentro dos subconjuntos e avaliadas para cada conjunto de regras, por n repetidas vezes.
 
 \newpage
 \section{Conclusões}
 
-A utilização de sistemas de classificação baseados em regras ponderadas através de graus de certeza, oferece uma solução baseada em conhecimento dedutivo, o que em termos práticos, implica na sobreposição de uma regra dominante sobre outra no espaço fuzzy, ou seja, na combinação de $n$ regras, pelo menos uma, por inferência composicional, forma a consequência lógica e tendência.
+A utilização de métodos de classificação baseados em inferência, oferece uma solução baseada em conhecimento adquirido por aprendizagem ativa. Nesta abordagem, a classificação de pontos afins com relação aos seus respectivos centros, é relevante para análise de similaridade entre conjuntos de dados não-rotulados. 
 
-Todos os procedimentos realizados no artigo e replicados nas simulações descritas compõem base de conhecimento por raciocínio aproximado, pelo fato da definição de consequentes a partir de relações de compatibilidade. Neste sentido a conclusão das conjunções lógicas, seja pelo operador mínimo ou produto como \textit{t-norma}, são baseadas no domínio de uma regra sobre a outra no espaço de decisão, sendo este ponderado pelo grau de certeza.
+\noindent Com a aplicação de algoritmo \textit{fuzzy c-Means} observou-se na realização dos experimentos, o efeito da aplicação das relações nebulosas e avaliação baseada em acurácia, em processos de inferência, propiciando distinção entre os dados de acordo com suas características de contexto.
 
-Assim, o procedimento apresentado em [1], o qual consiste na ponderação de regras SE-ENTÃO a partir de graus de certeza substitui a necessidade de otimização das funções de pertinências empregadas para descrição das variáveis linguísticas.
+\noindent Nos experimentos de segmentação de imagem e no agrupamento de um conjunto de dados não-rotulados, a rotina implementada apresentou resultado bastante similar tomando-se como referência a função \texttt{fcm} do MATLAB\textcopyright, apresentado desempenho satisfatório, conforme indicado na seção \ref{sec:results}.
+
 \newpage
 
 \section*{Referências}
 \addcontentsline{toc}{section}{\protect\numberline{}Referências}%
 
-[1] ISHIBUCHI, Hisao; NAKASHIMA, Tomoharu. Effect of rule weights in fuzzy rule-based classification systems. IEEE Transactions on Fuzzy Systems, v. 9, n. 4, p. 506-515, 2001.
+
+[1] CANNON, Robert L.; DAVE, Jitendra V.; BEZDEK, James C. Efficient implementation of the fuzzy c-means clustering algorithms. IEEE transactions on pattern analysis and machine intelligence, n. 2, p. 248-255, 1986.
+
+
+\noindent [2] COUTINHO, P. H. S. Proposta de Novos Algoritmos Híbridos de Clusterização Fuzzy e suas aplicações. Trabalho de Conclusão de Curso. Departamento de Ciências Exatas e Tecnológicas. Universidade Estadual de Santa Cruz. Ilhéus-Bahia, 2017.
 
 \end{document}
