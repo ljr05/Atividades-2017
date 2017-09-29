@@ -290,7 +290,7 @@ Considerada como uma técnica de aprendizado não-supervisionado e raciocínio a
 Para que se alcance o objetivo da \textit{clusterização}, realiza-se determinado número de iterações no sentido de minimizar a função de custo $J_{c}(\mu_{h},C)$, em termos da distância euclidiana entre um ponto aleatório de um conjunto de dados e outro ponto, também aleatório, dito pertencente ao vetor de centros. 
 
 \begin{equation}
-J=\sum_{i=1}^{N}\sum_{j=1}^{C}\mu_{ij}\lVert x_{i}-c_{j} \rVert^2
+J=\sum_{i=1}^{N}\sum_{j=1}^{C}\mu_{ij}^{m}\lVert x_{i}-c_{j} \rVert^2
 \end{equation}
 
 onde:
@@ -377,7 +377,7 @@ Nesta seção serão apresentados os resultados dos experimentos descritos anter
 
 \subsection{Agrupamento de dados}
 
-O algoritmo \textit{c-Means} implementado foi utilizado para agrupamento de elementos do conjunto de dados \textit{fcmdata.dat}, considerando 4 grupos. Nass Figuras \ref{fig:resul_cluster_cmeans} e \ref{fig:resul_cluster_fcm} são ilustrados os centros dos agrupamentos obtidos quando utilizado o algoritmo implementado e a função \texttt{fcm} do MATLAB, respectivamente.
+O algoritmo \textit{c-Means} implementado foi utilizado para agrupamento de elementos do conjunto de dados \textit{fcmdata.dat}, considerando 4 grupos. Nas Figuras \ref{fig:resul_cluster_cmeans} e \ref{fig:resul_cluster_fcm} são ilustrados os centros dos agrupamentos obtidos quando utilizado o algoritmo implementado e a função \texttt{fcm} do MATLAB, respectivamente.
 
 \begin{figure}[!htbp]
 	\centering
