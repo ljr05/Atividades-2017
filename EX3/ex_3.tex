@@ -8,8 +8,14 @@
 %\usepackage{natbib}
 %\usepackage[num,overcite]{abntex2cite}
 \usepackage{color}
-%\usepackage{hyperref}
-\usepackage[hidelinks]{hyperref}
+\usepackage[
+	a4paper,
+	portuguese,
+	bookmarks=true,
+	bookmarksnumbered=true,
+	linktocpage,
+]{hyperref}
+%\usepackage[hidelinks]{hyperref}
 \usepackage[alf]{abntex2cite}
 %\citebrackets[]
 
@@ -20,12 +26,13 @@
 \usepackage{latexsym}
 \usepackage{amsmath}
 \usepackage{amsthm}
-%\usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc}
+\usepackage{tabularx}
 %\usepackage{fetamont}
 %\usepackage[num]{abntcite}
 \usepackage{ mathrsfs }
 \usepackage{subfigure}
-
+\setlength{\parindent}{1.25cm}
 %\setcitestyle{aysep={,}} 
 
 \newcommand{\farcm}{\mbox{\ensuremath{.\mkern-4mu^\prime}}}%
@@ -56,40 +63,8 @@
 \renewcommand{\baselinestretch}{1.5}
 
 \usepackage{times}
-
 \usepackage{float}
-
-%Arial
-%\usepackage{helvet}
-%\renewcommand{\familydefault}{\sfdefault}
-
-%Times New Roman
-%\usepackage{mathptmx}
-
-%\topmargin -1.5cm
-%\leftmargin -2cm
-%\rightmargin -2cm
-%\oddsidemargin -0.7cm
-%\textwidth 16cm
-%\textheight 24cm
-%\hoffset -1cm 
-
 \usepackage{chngcntr}
-%\counterwithout{figure}{chapter}
-
-%\usepackage{fancyhdr}
-%
-%\fancypagestyle{mypagestyle}{
-%\fancyhf{}
-%\renewcommand{\headrulewidth}{0.5pt}
-%
-%\fancyhead[EL]{\normalsize \textsl{\nouppercase{\rightmark}}}
-%\fancyhead[OL]{\normalsize \textsl{\nouppercase{\leftmark}}}
-%\fancyhead[OR,ER]{}
-%\cfoot{\thepage}
-%}
-%
-%%\pagestyle{mypagestyle}
 
 \usepackage[portuguese, boxed, ruled]{algorithm2e}
 \SetKwRepeat{Repita}{Faça}{Enquanto}
@@ -141,12 +116,14 @@
 \tikzstyle{output} = [coordinate]
 \tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
 
+\hyphenation{seg-men-ta-ção}
+
 \begin{document}
 \pagenumbering{Roman}
 % CAPA
 
 \thispagestyle{empty}
-\hspace{-1cm}
+\hspace{-2cm}
 \begin{minipage}{0.35\textwidth}
 %\begin{flushleft}
 \vspace{-2cm}
@@ -221,66 +198,6 @@ Prof. Dr. André Paim Lemos
 \newpage
 \pagenumbering{arabic}
 
-%\documentclass[12pt,a4paper]{article}
-%%\documentclass[8pt]{beamer}
-%%\usetheme{default}
-%%\usepackage[font=small,format=plain,labelfont=bf,up,textfont=it,up]{caption}
-%%\usepackage{setspace}
-%\usepackage{graphicx}
-%\usepackage{epstopdf}
-%\usepackage{natbib}
-%\bibpunct{(}{)}{;}{a}{}{,}
-%\usepackage[brazil]{babel}
-%\usepackage[utf8]{inputenc}
-%\usepackage {enumerate}
-%\usepackage{latexsym}
-%\usepackage{amsmath}
-%%\usepackage[T1]{fontenc}
-%%\usepackage{fetamont}
-%%\usepackage[num]{abntcite}
-%\usepackage{ mathrsfs }
-%\usepackage{subfigure}
-%\usepackage{helvet}
-%\renewcommand{\familydefault}{\sfdefault}
-%
-%\newcommand{\farcm}{\mbox{\ensuremath{.\mkern-4mu^\prime}}}%
-%\newcommand{\farcs}{\mbox{\ensuremath{.\!\!^{\prime\prime}}}}
-%\newcommand{\ii }{\'{\i}}
-%\newcommand{\cc }{\c c}
-%\newcommand{\cca}{\c ca }
-%\newcommand{\ao}{\~ao }
-%\newcommand{\cao}{\c c\~ao }
-%\newcommand{\oes}{\~oes }
-%\newcommand{\coes}{\c c\~oes }
-%\newcommand{\eq}{\begin{equation}}
-%\newcommand{\feq}{\end{equation}}
-%\newcommand{\dm}{\begin{displaymath}}
-%\newcommand{\fdm}{\end{displaymath}}
-%\newcommand{\eqn}{\begin{eqnarray}}
-%\newcommand{\feqn}{\end{eqnarray}}
-%\newcommand{\grau}{^{\circ}}
-%\newcommand{\ba}{\arrowvert_{t_1}^{t_2}}
-%\newcommand{\bc}{\arrowvert_{0^{\circ} {\rm C}}^{t_2}}
-%\newcommand{\bb}{\arrowvert_{0^{\circ} {\rm C}}^{t_1}}
-%\newcommand{\Ms}{$\mathrm{M}_{\odot}$}
-%%\renewcommand{\labelitemiv}{$-$}
-%\usepackage{amssymb}
-%\newcommand{\reg}[1]{#1$^{\tiny{\circledR}}$}
-%\usepackage[top=3cm, bottom=2cm, left=3cm, right=2cm,asymmetric]{geometry} 
-%\renewcommand{\baselinestretch}{1.5}
-%%\topmargin -1.5cm
-%%\leftmargin -2cm
-%%\rightmargin -2cm
-%%\oddsidemargin -0.7cm
-%%\textwidth 16cm
-%%\textheight 24cm
-%%\hoffset -1cm 
-%
-%\usepackage{epic}
-%\usepackage{arydshln}
-%\providecommand{\sin}{} \renewcommand{\sin}{\hspace{2pt}\mathrm{sen}}
-%\numberwithin{equation}{section}
-
 \section{Introdução}
 Um algoritmo de agrupamento organiza itens em grupos, baseado no critério de similaridade. O algoritmo \textit{fuzzy c-Means} realiza agrupamentos de tal forma que determinado dado possuiu um grau de pertinência em relação a cada grupo, de modo que um maior grau de pertinência representa um maior compatibilidade do dado com o respectivo grupo, \textit{cluster}. 
 
@@ -322,7 +239,6 @@ O critério de parada é expresso em termos da acurácia dos graus de pertinênc
 \\
 
 \begin{algorithm}[H] \label{alg:cmeans}
-	\textbf{Agrupamento}\\
 	Determinar a quantidade de grupos \textit{c}; \\
 	Determinar o erro máximo $\epsilon$;\\
 	Inicializar os centros aleatoriamente;\\
@@ -332,7 +248,7 @@ O critério de parada é expresso em termos da acurácia dos graus de pertinênc
 		Atualizar $\mu_{ij}$, dado pela Eq. \eqref{eq:membership};\\
 		Atualizar cada centro $c_j$, dado pela Eq. \eqref{eq:center};\\
 	}
-	\caption{Algoritmo Fuzzy c-Means}
+	\caption{Algoritmo Fuzzy \textit{c-Means}}
 \end{algorithm}
 
 \section{Descrição do Experimentos}
@@ -357,9 +273,9 @@ A Figura \ref{fig:fcmdata} e \ref{fig:images} ilustram os dados do conjunto \tex
 
 \begin{figure}[!htbp]
 	\centering
-	\subfigure[Imagem $01$]{\includegraphics[width = 0.4\textwidth]{figures/img01.jpg}}
-	\subfigure[Imagem $02$]{\includegraphics[width = 0.5\textwidth, height = 0.26\textheight]{figures/img02.jpg}}
-	\subfigure[Imagem $03$]{\includegraphics[width = 0.3\textwidth]{figures/img03.jpg}}
+	\subfigure[Imagem $01$]{\includegraphics[width = 0.4\textwidth]{figures/img01.jpg} \label{fig:img_01}}
+	\subfigure[Imagem $02$]{\includegraphics[width = 0.5\textwidth, height = 0.26\textheight]{figures/img02.jpg} \label{fig:img_02}}
+	\subfigure[Imagem $03$]{\includegraphics[width = 0.3\textwidth]{figures/img03.jpg} \label{fig:img_03}}
 	\caption{Imagens usadas na aplicação do algoritmo \textit{c-Means} para segmentação de imagens.}
 	\label{fig:images}
 \end{figure}
@@ -367,7 +283,7 @@ A Figura \ref{fig:fcmdata} e \ref{fig:images} ilustram os dados do conjunto \tex
 %\subsection{Procedimentos Computacionais}
 \section{Resultados} \label{sec:results}
 
-Nesta seção serão apresentados os resultados dos experimentos descritos anteriormente na Seção \ref{section:descr}.
+Nesta seção serão apresentados os resultados dos experimentos descritos anteriormente na Seção \ref{section:descr}. Todos os experimentos foram executados utilizando o algoritmo implementado para o erro, $\epsilon=10^{-3}$, e a função \texttt{fcm} do MATLAB, e para ambos os algoritmos $m=2$.
 
 \subsection{Agrupamento de dados}
 
@@ -375,7 +291,7 @@ O algoritmo \textit{c-Means} implementado foi utilizado para agrupamento de elem
 
 \begin{figure}[!htbp]
 	\centering
-	\subfigure[Algoritmo desenvolvido.]{\includegraphics[width = 0.49\textwidth]{figures/data_cmeans.eps}\label{fig:resul_cluster_cmeans}}
+	\subfigure[Algoritmo implementado.]{\includegraphics[width = 0.49\textwidth]{figures/data_cmeans.eps}\label{fig:resul_cluster_cmeans}}
 	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.49\textwidth]{figures/data_fcm.eps}\label{fig:resul_cluster_fcm}}
 	\caption{Comparação dos centros dos agrupamentos, considerando 4 agrupamentos, obtidos por meio do algoritmo \textit{c-Means} implementado e da função \texttt{fcm} do MATLAB.}
 \end{figure}
@@ -383,30 +299,35 @@ O algoritmo \textit{c-Means} implementado foi utilizado para agrupamento de elem
 \subsection{Segmentação de imagens}
 \label{subsection:seg}
 
+O algoritmo utilizado no problema anterior foi adaptado para aplicação ao problema de segmentação de imagens para o espaço de cores RGB utilizando diferentes quantidades de grupos de agrupamento, nesse experimento nós escolhemos o número de grupos de acordo com avaliação visual da imagem.
+
+Dessa maneira, para a Imagem $01$, Figura \ref{fig:img_01}, foi escolhido $4$ grupos, isto é $c=4$, já para a Imagem $02$, Figura \ref{fig:img_02}, atribuiu-se $c=3$, apenas $3$ grupos uma vez que a imagem possui poucas cores, e finalmente para a Imagem $03$, Figura \ref{fig:img_03}, escolheu-se $6$ grupos, $c=6$. 
+
+As Figuras \ref{fig:img_01_seg}, \ref{fig:img_02_seg} e \ref{fig:img_03_seg} mostram os resultados obtidos pela aplicação dos algoritmos para segmentação das imagens da Figura \ref{fig:images}, repectivamente.
+	
 \begin{figure}[!htbp]
 	\centering
-	\subfigure[Algoritmo desenvolvido.]{\includegraphics[width = 0.49\textwidth]{figures/img1_4.eps}\label{fig:img1.eps}}
-	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.49\textwidth]{figures/matlab_img1_4.eps}\label{fig:img1_matlab.eps}}
+	\subfigure[Algoritmo implementado.]{\includegraphics[width = 0.49\textwidth]{figures/img1_4.eps}\label{fig:img1}}
+	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.49\textwidth]{figures/matlab_img1_4.eps}\label{fig:img1_matlab}}
 	\caption{Comparação das imagens, considerando 4 agrupamentos, obtidas por meio do algoritmo \textit{c-Means} implementado e da função \texttt{fcm} do MATLAB.}
+	\label{fig:img_01_seg}
 \end{figure}
 
 \begin{figure}[!htbp]
 	\centering
-	\subfigure[Algoritmo desenvolvido.]{\includegraphics[width = 0.49\textwidth]{figures/img2_3.eps}\label{fig:img2.eps}}
-	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.49\textwidth]{figures/matlab_img2_3.eps}\label{fig:img2_matlab.eps}}
+	\subfigure[Algoritmo implementado.]{\includegraphics[width = 0.49\textwidth]{figures/img2_3.eps}\label{fig:img2}}
+	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.49\textwidth]{figures/matlab_img2_3.eps}\label{fig:img2_matlab}}
 	\caption{Comparação das imagens, considerando 3 agrupamentos, obtidas por meio do algoritmo \textit{c-Means} implementado e da função \texttt{fcm} do MATLAB.}
+	\label{fig:img_02_seg}
 \end{figure}
 
 \begin{figure}[!htbp]
 	\centering
-	\subfigure[Algoritmo desenvolvido.]{\includegraphics[width = 0.49\textwidth]{figures/img3_6.eps}\label{fig:img3.eps}}
-	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.49\textwidth]{figures/matlab_img3_6.eps}\label{fig:img3_matlab.eps}}
+	\subfigure[Algoritmo implementado.]{\includegraphics[width = 0.49\textwidth]{figures/img3_6.eps}\label{fig:img3}}
+	\subfigure[Função \texttt{fcm} do MATLAB.]{\includegraphics[width = 0.49\textwidth]{figures/matlab_img3_6.eps}\label{fig:img3_matlab}}
 	\caption{Comparação das imagens, considerando 6 agrupamentos, obtidas por meio do algoritmo \textit{c-Means} implementado e da função \texttt{fcm} do MATLAB.}
+	\label{fig:img_03_seg}
 \end{figure}
-
-Na abordagem computacional, por meio da técnica de validação cruzada, cada conjunto de espécies foi separado de forma aleatória em subconjuntos de treinamento e validação representados, com dimensão de $70\%$ e $30\%$, respectivamente de cada classe de padrões.
-
-%As amostras foram escolhidas aleatoriamente dentro dos subconjuntos e avaliadas para cada conjunto de regras, por n repetidas vezes.
 
 \newpage
 \section{Conclusões}
