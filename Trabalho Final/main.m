@@ -22,6 +22,7 @@ x = granulating(data(h,:));
 A(c+1,:) = x(1:8);
 B(c+1,1) = x(9);
 c = c + 1;
+ha{c} = h;
 P{1,1} = 10e3*eye(size(x,2));
 a{1,1} = zeros(size(x,2),1);
 
@@ -77,6 +78,7 @@ for h=2:size(data,1)
         A(c+1,:) = x(1:8);
         B(c+1,1) = x(9);
         c = c + 1;
+        ha{c} = h;
         P{c,1} = 10e3*eye(size(x,2));
         a{c,1} = zeros(size(x,2),1);
     else
@@ -108,7 +110,6 @@ for h=2:size(data,1)
         %% Remove inactive granules
         for i = 1:c
             Theta{i} = 2^(-psi*(h-ha{i}));
-            % criar ha{i}
         end
     end
 end
