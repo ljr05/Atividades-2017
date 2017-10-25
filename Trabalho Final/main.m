@@ -12,6 +12,7 @@ hr = 40;
 etta = 2;
 psi = 1/40;
 c = 0;
+c_early = 0;
 
 %% Read (x,y)[h], h = 1
 h = 1;
@@ -96,7 +97,18 @@ for h=2:size(data,1)
     end
     if isequal(mod(h,hr),0)
         %% Combine granules when feasible
-        %% Update model granularity rho
+        %% Update model granularity, rho
+        r = c - c_early;
+        if r > etta
+            rho = (1 + r/hr)*rho;
+        else
+            rho = (1 + (etta-r)/hr)*rho;
+        end
+        c_early = c;
         %% Remove inactive granules
+        for i = 1:c
+            Theta{i} = 2^(-psi*(h-ha{i}));
+            % criar ha{i}
+        end
     end
 end
