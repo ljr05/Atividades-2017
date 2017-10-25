@@ -85,14 +85,6 @@ for h=2:size(data,1)
         end
         B = updating(x{j},B(is,1),rho);
         
-        for i=1:c
-            for j=1:8
-                ux(i,j) = trapmf(mp(x(j)),[A{i,j}]);
-            end
-            [a{i} P{i}] = RLS(a{i},P{i},x(1:8),x(9));
-            pi(i) = a{i}'*[1; mp(x(1:8))'];
-        end
-        p = sum(min(ux').*pi)/(sum(min(ux')));
     end
     if isequal(mod(h,hr),0)
         %% Combine granules when feasible
