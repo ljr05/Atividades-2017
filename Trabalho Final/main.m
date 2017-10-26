@@ -37,18 +37,18 @@ for h=2:size(data,1)
     end
     p = sum(min(ux').*pi)/(sum(min(ux')));                  % global output
     %% Provide granular approximation B{i*} - convex hull
-%     convex = [];
-%     for i=1:c
-%         uy(i) = trapmf(mp(x(9)),[B{i}]);  
-%         if uy(i)~=0
-%             convex = [convex; B{i}];
-%         end
-%     end
-%     if ~isempty(convex)
-%         ch_B = [min(convex(:,1)) min(convex(:,2)) max(convex(:,3)) max(convex(:,4))];
-%     end
+    %     convex = [];
+    %     for i=1:c
+    %         uy(i) = trapmf(mp(x(9)),[B{i}]);
+    %         if uy(i)~=0
+    %             convex = [convex; B{i}];
+    %         end
+    %     end
+    %     if ~isempty(convex)
+    %         ch_B = [min(convex(:,1)) min(convex(:,2)) max(convex(:,3)) max(convex(:,4))];
+    %     end
     %% Calculate output error eps[h] = mp(y[h]) - p(x[h])
-%     eps = mp(x(9)) - p;
+    %     eps = mp(x(9)) - p;
     %% check expanded regions i-th E
     aux = 0;
     for i=1:c
@@ -66,9 +66,6 @@ for h=2:size(data,1)
         ha{c} = h;
         P{c,1} = 10e3*eye(size(x,2));
         a{c,1} = [mp(x(9)); zeros(size(x,2)-1,1)];        % coefficients of c-th y_est (consequent functional)
-%         if isequal(mod(h,hr),0)
-%             disp(c);
-%         end
     else
         %% Adapt the most active granule Gamma{i}
         iS = index_most_active(x,A);
@@ -91,11 +88,8 @@ for h=2:size(data,1)
     %% if h = alpha*hr,  alpha = 1, 2, ...
     if isequal(mod(h,hr),0)
         %% Combine granules when feasible
-        if (h == 1000)
-            disp(c);
-        end
         [SV, I_row, I_col] = most_similar_granules(A);
-        while (SV >= 0.75)
+        while (SV >= 0.77)
             A(I_row,:) = combine_granules(A(I_row,:),A(I_col,:));
             A(I_col,:) = [];
             B(I_row,:) = combine_granules(B(I_row,:),B(I_col,:));
@@ -134,7 +128,7 @@ for h=2:size(data,1)
         for i = 1:c
             Theta(i,1) = 2^(-psi*(h-ha{i}));
         end
-        remov = find(Theta<=psi);
+        remov = find(Theta<=1/psi);
         Theta(remov) = [];
         A(remov,:) = [];
         B(remov,:) = [];
@@ -147,3 +141,17 @@ for h=2:size(data,1)
 end
 disp(mean(C));
 disp(rho);
+
+clear ux
+for k=1:1030
+    x = granulating(data(i,:));
+    for i=1:c
+        ux(i,:) = similarity_meas_data(x(1:8), A(i,:));
+    end
+    w = min(ux);
+    y(k) = 0;
+    for i=1:c
+        y(k) = y(k) + w(i)*a{i,1}'*[1 mp(x(1:8))]';
+    end
+    y(k) = y(k)/sum(w);
+end
