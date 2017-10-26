@@ -1,4 +1,4 @@
-%% Midpoint
+%% Midpoint of trapezoids
 function M = mp(x)
 for i=1:size(x,2)
     a = x{i}(3) - x{i}(2);

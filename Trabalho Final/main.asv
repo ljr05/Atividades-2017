@@ -66,9 +66,6 @@ for h=2:size(data,1)
         ha{c} = h;
         P{c,1} = 10e3*eye(size(x,2));
         a{c,1} = [mp(x(9)); zeros(size(x,2)-1,1)];        % coefficients of c-th y_est (consequent functional)
-%         if isequal(mod(h,hr),0)
-%             disp(c);
-%         end
     else
         %% Adapt the most active granule Gamma{i}
         iS = index_most_active(x,A);
@@ -88,11 +85,11 @@ for h=2:size(data,1)
         end
         p = sum(min(ux').*pi)/(sum(min(ux')));
     end
-    %% if h = alpha*hr,  alpha = 1, 2, ...
+    %% 
     if isequal(mod(h,hr),0)
         %% Combine granules when feasible
         [SV, I_row, I_col] = most_similar_granules(A);
-        while (SV >= 0.8)
+        while (SV >= 0.5)
             A(I_row,:) = combine_granules(A(I_row,:),A(I_col,:));
             A(I_col,:) = [];
             B(I_row,:) = combine_granules(B(I_row,:),B(I_col,:));
@@ -113,17 +110,7 @@ for h=2:size(data,1)
         end
         for i=1:c
             for j=1:8
-                if (mp(A(i,j)) - rho/2 > A{i,j}(1))
-                    A{i,j}(1) = mp(A(i,j)) - rho/2;
-                end
-                if (mp(A(i,j)) + rho/2 < A{i,j}(4))
-                    A{i,j}(4) = mp(A(i,j)) + rho/2;
-                end
-                if (mp(A(i,j)) - rho/2 > A{i,j}(2))
-                    A{i,j}(2) = mp(A(i,j)) - rho/2;
-                end
-                if (mp(A(i,j)) + rho/2 < A{i,j}(3))
-                    A{i,j}(3) = mp(A(i,j)) + rho/2;
+                if mp(A(i,j)) - rho/2 > 
                 end
             end
         end
@@ -135,12 +122,9 @@ for h=2:size(data,1)
         Theta(remov) = [];
         A(remov,:) = [];
         B(remov,:) = [];
-        a(remov,:) = [];
         ha(:,remov) = [];
         c = c - size(remov,1);
-        c_early = c;
     end
+    c_early = c;
     C(h) = c;
 end
-disp(mean(C));
-disp(rho);
