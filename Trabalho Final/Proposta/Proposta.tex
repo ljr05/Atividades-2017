@@ -9,6 +9,8 @@
 \usepackage{multicol}
 \usepackage{xcolor}
 \usepackage{xwatermark}
+\usepackage[round]{natbib}
+
 %\newwatermark[allpages, angle=45, scale=2.0, color=black!15]{matematicautodidata.com}
 
 %\title{Lista de Exercício IPE 2}
@@ -27,17 +29,29 @@
 
 \vspace{.5cm}
 
-\noindent Alunos:\\ 
-Luiz Alberto Queiroz Cordovil Júnior\\Pedro Henrique Silva Coutinho\\Rodrigo Farias Araújo\\
+\noindent \textbf{Alunos:}\\ 
+Luiz Alberto Queiroz Cordovil Júnior\\
+Pedro Henrique Silva Coutinho\\
+Rodrigo Farias Araújo\\
 \begin{center}
-\textbf{Modelagem granular evolutiva baseada em conjuntos fuzzy} % Título
+\textbf{Modelagem granular evolutiva baseada em conjuntos \textit{fuzzy}} % Título
 \end{center}
 
 \section{Introdução}
 
-\section{Objetivos}
+\hspace{0.4cm} A granulação de informação refere-se ao processo de dividir um objeto integral em várias partes, em que cada parte pode ser reconhecida como um grânulo de informação \citep{yin2017}. Cada grânulo contribui para compreensão do sistema como um todo.
 
-\section{Referências}
+Estruturalmente, um modelo granular evolutivo baseado em conjuntos \textit{fuzzy} combina variáveis \textit{fuzzy} linguísticas e funcionais para fornecer aproximações granulares e únicas de funções não-estacionárias e uma descrição linguística do comportamento do sistema. A componente \textit{fuzzy} funcional é geralmente mais precisa enquanto que a componente \textit{fuzzy} linguística é mais interpretável \citep{leite2011}.
 
+Diversas aplicações desta abordagem são retratadas na literatura científica, por exemplo, previsão de série temporais, aproximação de funções, reconhecimento de padrões e controle de sistemas dinâmicos não-lineares \citep{leite2015}.
+
+\section{Objetivo}
+
+\hspace{0.4cm} O objetivo deste trabalho é obter um modelo interpretável a partir de modelagem granular evolutiva baseada em conjuntos \textit{fuzzy} no contexto de aproximação de funções.
+
+Como estudo de caso será utilizado o conjunto de dados \textit{Concrete Compressive Strength} disponível no repositório \textit{online} \textit{UCI Machine Learning}.
+
+\bibliographystyle{abbrvnat}
+\bibliography{ref}
 
 \end{document}

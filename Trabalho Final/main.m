@@ -91,8 +91,11 @@ for h=2:size(data,1)
     %% if h = alpha*hr,  alpha = 1, 2, ...
     if isequal(mod(h,hr),0)
         %% Combine granules when feasible
+        if (h == 1000)
+            disp(c);
+        end
         [SV, I_row, I_col] = most_similar_granules(A);
-        while (SV >= 0.8)
+        while (SV >= 0.75)
             A(I_row,:) = combine_granules(A(I_row,:),A(I_col,:));
             A(I_col,:) = [];
             B(I_row,:) = combine_granules(B(I_row,:),B(I_col,:));
