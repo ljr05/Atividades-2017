@@ -82,7 +82,8 @@ for h=2:size(data,1)
         P{c,1} = 10e3*eye(size(x,2));
         a{c,1} = zeros(size(x,2),1);
     else
-        iS = index_most_activ(x,A);
+        iS = index_most_active(x,A);
+        ha{iS} = h;
         for j=1:8
             A = updating(x{j},A(is,j),rho);
         end
@@ -99,6 +100,18 @@ for h=2:size(data,1)
     end
     if isequal(mod(h,hr),0)
         %% Combine granules when feasible
+        S = similarity_meas(A);
+        for i=1:size(A,1)
+            for j=1:size(A,1)
+                if (j > i) && (S(i,j) > rho)
+                    A(i,:) = update;
+                    A(j,:) = [];
+                    B(j,1) = [];
+                    ha{j} = [];
+                    c = c - 1;
+                end
+            end
+        end
         %% Update model granularity, rho
         r = c - c_early;
         if r > etta
@@ -109,7 +122,12 @@ for h=2:size(data,1)
         c_early = c;
         %% Remove inactive granules
         for i = 1:c
-            Theta{i} = 2^(-psi*(h-ha{i}));
+            Theta(i,1) = 2^(-psi*(h-ha{i}));
         end
+        remov = find(Theta<=psi);
+        Theta(remov) = [];
+        A(remov,:) = [];
+        B(remov,1) = [];
+        c = c - size(remov,1);
     end
 end
