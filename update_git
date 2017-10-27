@@ -1,0 +1,8 @@
+git commit -a
+ctrl+o
+:x
+git push
+
+git pull --rebase : atualizar
+
+git add caminho do arquivo
