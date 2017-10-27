@@ -1,7 +1,10 @@
 %% Similarity measure between data and granule
 function S = similarity_meas_data(x,A)
 S = zeros(size(A,1),1);
-n = size(x,2)-1;
+n = size(x,2);
+% if n > 1
+%     n = n -1;
+% end
 for i=1:size(A,1)
     for j=1:n
         for k=1:4
